@@ -4,6 +4,8 @@
 
 I wanted to have a starter template to develop more complex experiences while taking advantage of the amazing ecosystem built around [Next.js](https://nextjs.org) and [React-Three Fiber](https://github.com/pmndrs/react-three-fiber). Fortunately, the folks maintaining the excellent [react-three-next](https://github.com/pmndrs/react-three-next) starter gave me everything I needed to create my custom version of it.
 
+In this adaptation, I've added missing TypeScript types in various components and hooks, included `3.x` features such as [Lenis](https://github.com/darkroomengineering/lenis/tree/main) support, extracted dynamic imports to barrel files for a more declarative syntax, and reorganized the codebase around feature folders.
+
 ### Features
 
 - [Next.js](https://nextjs.org) with app router support.
