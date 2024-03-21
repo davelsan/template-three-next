@@ -1,15 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
-import dynamic from 'next/dynamic';
-import { Lenis } from '@/components/dom/Lenis';
-const Scene = dynamic(() => import('@/components/canvas/Scene'), {
-  ssr: false,
-});
+import { PropsWithChildren, useRef } from 'react';
+import { Lenis } from '../Lenis';
+import { Scene } from '../Scene';
 
-const Layout = ({ children }) => {
+export function Layout({ children }: PropsWithChildren) {
   const ref = useRef();
-
   return (
     <div ref={ref}>
       <Lenis
@@ -35,6 +31,4 @@ const Layout = ({ children }) => {
       </Lenis>
     </div>
   );
-};
-
-export { Layout };
+}
