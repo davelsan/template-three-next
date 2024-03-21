@@ -93,7 +93,7 @@ export default function Page() {
                 position={[0, -1.6, 0]}
                 rotation={[0.0, -0.3, 0]}
               />
-              <Common color={'lightpink'} controls />
+              <Common color="lightpink" controls />
             </Suspense>
           </View>
         </div>
@@ -102,7 +102,7 @@ export default function Page() {
           <View className="relative h-full animate-bounce sm:h-48 sm:w-full">
             <Suspense fallback={null}>
               <Duck scale={2} position={[0, -1.6, 0]} />
-              <Common color={'lightblue'} controls />
+              <Common color="lightblue" controls />
             </Suspense>
           </View>
         </div>
