@@ -2,21 +2,22 @@
 
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import { Common as Common1 } from '@/components/canvas/Scene';
 
 const Logo = dynamic(
-  () => import('@/components/canvas/Examples').then((mod) => mod.Logo),
+  () => import('@/components/canvas/Logo').then((mod) => mod.Logo),
   { ssr: false }
 );
 const Dog = dynamic(
-  () => import('@/components/canvas/Examples').then((mod) => mod.Dog),
+  () => import('@/components/canvas/Dog').then((mod) => mod.Dog),
   { ssr: false }
 );
 const Duck = dynamic(
-  () => import('@/components/canvas/Examples').then((mod) => mod.Duck),
+  () => import('@/components/canvas/Duck').then((mod) => mod.Duck),
   { ssr: false }
 );
 const View = dynamic(
-  () => import('@/components/canvas/View').then((mod) => mod.View),
+  () => import('@react-three/drei').then((mod) => mod.View),
   {
     ssr: false,
     loading: () => (
@@ -45,14 +46,14 @@ const View = dynamic(
   }
 );
 const Common = dynamic(
-  () => import('@/components/canvas/View').then((mod) => mod.Common),
+  () => import('@/components/canvas/Scene').then((mod) => Common1),
   { ssr: false }
 );
 
 export default function Page() {
   return (
     <>
-      <div className="mx-auto flex w-full flex-col flex-wrap items-center md:flex-row  lg:w-4/5">
+      <div className="mx-auto flex w-full flex-col flex-wrap items-center md:flex-row lg:w-4/5">
         {/* jumbo */}
         <div className="flex w-full flex-col items-start justify-center p-12 text-center md:w-2/5 md:text-left">
           <p className="w-full uppercase">Next + React Three Fiber</p>
@@ -85,26 +86,23 @@ export default function Page() {
           </p>
         </div>
         <div className="relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40">
-          <View orbit className="relative h-full  sm:h-48 sm:w-full">
+          <View className="relative h-full  sm:h-48 sm:w-full">
             <Suspense fallback={null}>
               <Dog
                 scale={2}
                 position={[0, -1.6, 0]}
                 rotation={[0.0, -0.3, 0]}
               />
-              <Common color={'lightpink'} />
+              <Common color={'lightpink'} controls />
             </Suspense>
           </View>
         </div>
         {/* second row */}
         <div className="relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40">
-          <View
-            orbit
-            className="relative h-full animate-bounce sm:h-48 sm:w-full"
-          >
+          <View className="relative h-full animate-bounce sm:h-48 sm:w-full">
             <Suspense fallback={null}>
-              <Duck route="/blob" scale={2} position={[0, -1.6, 0]} />
-              <Common color={'lightblue'} />
+              <Duck scale={2} position={[0, -1.6, 0]} />
+              <Common color={'lightblue'} controls />
             </Suspense>
           </View>
         </div>
