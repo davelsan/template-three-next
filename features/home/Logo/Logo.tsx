@@ -1,10 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useMemo, useRef, useState } from 'react';
+import { EllipseCurve } from 'three';
 import { Line, useCursor, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { EllipseCurve } from 'three';
 
 export const Logo = ({ route = '/blob', ...props }) => {
   const mesh = useRef(null);

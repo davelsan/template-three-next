@@ -16,6 +16,17 @@ const nextConfig = {
   // compiler: {
   //   styledComponents: true,
   // },
+  eslint: {
+    dirs: [
+      //
+      'app',
+      'components',
+      'features',
+      'helpers',
+      'hooks',
+      'utils',
+    ],
+  },
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   images: {},
   webpack(config, { isServer }) {

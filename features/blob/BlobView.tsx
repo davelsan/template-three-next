@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { Common } from '@templates/Common';
+
 import { Blob } from './Blob';
 
 const View = dynamic(

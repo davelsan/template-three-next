@@ -4,9 +4,9 @@ Command: npx gltfjsx@6.2.16 -t ./public/dog.glb -t
 */
 
 import React from 'react';
-import { useGLTF } from '@react-three/drei';
-import { GLTF } from 'three-stdlib';
 import type { Mesh, MeshStandardMaterial } from 'three';
+import { GLTF } from 'three-stdlib';
+import { useGLTF } from '@react-three/drei';
 
 type GLTFResult = GLTF & {
   nodes: {

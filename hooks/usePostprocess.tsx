@@ -1,4 +1,3 @@
-import { RootState, useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo } from 'react';
 import {
   BufferAttribute,
@@ -11,6 +10,7 @@ import {
   Scene,
   WebGLRenderTarget,
 } from 'three';
+import { RootState, useFrame, useThree } from '@react-three/fiber';
 
 function getFullscreenTriangle() {
   const geometry = new BufferGeometry();
@@ -48,7 +48,8 @@ const usePostProcess = () => {
       samples: 4,
       colorSpace: gl.outputColorSpace,
     });
-    renderTarget.depthTexture = new DepthTexture(size.width, size.height); // fix depth issues
+    const { width, height } = size;
+    renderTarget.depthTexture = new DepthTexture(width, height); // fix depth issues
 
     // use ShaderMaterial for linearToOutputTexel
     screen.material = new RawShaderMaterial({
@@ -100,7 +101,8 @@ const usePostProcess = () => {
     screen.material.uniforms.diffuse.value = renderTarget.texture;
 
     return [screenCamera, screenScene, screen, renderTarget];
-  }, [gl.outputColorSpace]);
+  }, [gl.outputColorSpace, size]);
+
   useEffect(() => {
     const { width, height } = size;
     const { w, h } = {

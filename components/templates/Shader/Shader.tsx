@@ -1,14 +1,15 @@
-import { Color, GLSL3 } from 'three';
-import { extend, useFrame } from '@react-three/fiber';
-import { shaderMaterial } from '@react-three/drei';
-import vertex from './glsl/shader.vert';
-import fragment from './glsl/shader.frag';
 import {
   forwardRef,
   PropsWithChildren,
   useImperativeHandle,
   useRef,
 } from 'react';
+import { Color, GLSL3 } from 'three';
+import { shaderMaterial } from '@react-three/drei';
+import { extend, useFrame } from '@react-three/fiber';
+
+import fragment from './glsl/shader.frag';
+import vertex from './glsl/shader.vert';
 
 type ShaderProps = {
   time: number;

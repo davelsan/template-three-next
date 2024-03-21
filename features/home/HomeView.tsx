@@ -3,8 +3,9 @@
 import { Suspense } from 'react';
 import { Common } from '@templates/Common';
 import { View } from '@templates/View';
-import { Duck } from './Duck';
+
 import { Dog } from './Dog';
+import { Duck } from './Duck';
 import { Logo } from './Logo';
 
 export function HomeView() {

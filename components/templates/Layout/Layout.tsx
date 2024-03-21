@@ -1,6 +1,7 @@
 'use client';
 
 import { PropsWithChildren, useRef } from 'react';
+
 import { Lenis } from '../Lenis';
 import { Scene } from '../Scene';
 

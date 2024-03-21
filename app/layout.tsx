@@ -1,4 +1,5 @@
 import { Layout } from '@templates/Layout';
+
 import './global.css';
 
 export const metadata = {

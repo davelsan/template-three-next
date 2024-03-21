@@ -1,8 +1,8 @@
 'use client';
 
-import { addEffect } from '@react-three/fiber';
-import { ReactLenis, LenisContext } from '@studio-freight/react-lenis';
 import { useEffect, useRef } from 'react';
+import { addEffect } from '@react-three/fiber';
+import { LenisContext, ReactLenis } from '@studio-freight/react-lenis';
 
 /**
  * Lenis (smooth scrolling) wrapper.

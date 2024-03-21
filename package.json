@@ -10,12 +10,12 @@
     "node": ">=14"
   },
   "scripts": {
-    "lint": "next lint --fix --dir app",
+    "lint": "next lint --fix",
     "dev": "next dev",
     "build": "next build",
     "analyze": "ANALYZE=true next build",
     "start": "next start",
-    "prettier": "prettier --check --write --no-error-on-unmatched-pattern ./src/**/*.{ts,tsx,md} ./app/**/*.{ts,tsx,md}",
+    "format": "prettier --check --write --no-error-on-unmatched-pattern ./**/*.{ts,tsx,md} ./**/*.{ts,tsx,md}",
     "gltfjsx": "gltfjsx -t"
   },
   "dependencies": {
@@ -39,6 +39,8 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.1.4",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-simple-import-sort": "^12.0.0",
     "eslint-plugin-tailwindcss": "^3.15.1",
     "file-loader": "^6.2.0",
     "glslify": "^7.1.1",
