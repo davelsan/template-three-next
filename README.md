@@ -14,3 +14,7 @@ In this adaptation, I've added missing TypeScript types in various components an
 - Codebase organized around [features](./features) to compose the different pages and an incipient atomic design for [components](./components).
 - [TypeScript](https://www.typescriptlang.org) for type safety and great intellisense, together with sensible [ESLint](https://eslint.org) and [Prettier](https://prettier.io) configurations.
 
+### TODO
+
+- [ ] CVA and examples
+- [ ] Jotai for state management
