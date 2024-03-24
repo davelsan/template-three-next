@@ -23,10 +23,14 @@
           ["^[a-z]", "^@"],
           // Folder aliases
           [
-            "^@components",
+            "^@atoms",
+            "^@molecules",
             "^@features",
             "^@helpers",
+            "^@hooks",
+            "^@organisms",
             "^@shaders",
+            "^@templates",
             "^@utils"
           ],
           // Folder imports (starting with `../` or `./`)

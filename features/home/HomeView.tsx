@@ -1,6 +1,7 @@
 'use client';
 
 import { Suspense } from 'react';
+
 import { Common } from '@templates/Common';
 import { View } from '@templates/View';
 

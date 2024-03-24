@@ -2,12 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 import { useMemo, useRef, useState } from 'react';
-import { EllipseCurve } from 'three';
+import { EllipseCurve, Group } from 'three';
 import { Line, useCursor, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
 export const Logo = ({ route = '/blob', ...props }) => {
-  const mesh = useRef(null);
+  const groupRef = useRef<Group>(null);
   const router = useRouter();
   const [hovered, hover] = useState(false);
 
@@ -19,14 +19,16 @@ export const Logo = ({ route = '/blob', ...props }) => {
 
   useCursor(hovered);
   useFrame((state, delta) => {
+    const mesh = groupRef.current;
+    if (!mesh) return;
     const t = state.clock.getElapsedTime();
-    mesh.current.rotation.y = Math.sin(t) * (Math.PI / 8);
-    mesh.current.rotation.x = Math.cos(t) * (Math.PI / 8);
-    mesh.current.rotation.z -= delta / 4;
+    mesh.rotation.y = Math.sin(t) * (Math.PI / 8);
+    mesh.rotation.x = Math.cos(t) * (Math.PI / 8);
+    mesh.rotation.z -= delta / 4;
   });
 
   return (
-    <group ref={mesh} {...props}>
+    <group ref={groupRef} {...props}>
       <Line worldUnits points={points} color="#1fb2f5" lineWidth={0.15} />
       <Line
         worldUnits

@@ -16,12 +16,14 @@ type ShaderProps = {
   color: Color;
 };
 
-type ShaderImpl = typeof ShaderImpl & ShaderProps;
+type ShaderImpl = ShaderProps;
+
+const COLOR = new Color(0.05, 0.0, 0.025);
 
 const ShaderImpl = shaderMaterial(
   {
     time: 0,
-    color: new Color(0.05, 0.0, 0.025),
+    color: COLOR,
   },
   vertex,
   fragment
@@ -31,9 +33,16 @@ extend({ ShaderImpl });
 
 const Shader = forwardRef<ShaderImpl, PropsWithChildren<ShaderProps>>(
   function ShaderRef({ children, ...props }, ref) {
-    const localRef = useRef<ShaderImpl>();
+    const localRef = useRef<ShaderImpl | undefined>();
 
-    useImperativeHandle(ref, () => localRef.current);
+    useImperativeHandle(ref, () => ({
+      get time() {
+        return localRef.current?.time ?? 0;
+      },
+      get color() {
+        return localRef.current?.color ?? COLOR;
+      },
+    }));
 
     useFrame((_, delta) => {
       if (!localRef.current) return;

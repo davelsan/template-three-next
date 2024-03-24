@@ -1,8 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { ComponentProps, useEffect, useRef } from 'react';
 import { addEffect } from '@react-three/fiber';
 import { LenisContext, ReactLenis } from '@studio-freight/react-lenis';
+
+type LenisProps = ComponentProps<typeof ReactLenis>;
 
 /**
  * Lenis (smooth scrolling) wrapper.
@@ -10,7 +12,7 @@ import { LenisContext, ReactLenis } from '@studio-freight/react-lenis';
  * - https://github.com/darkroomengineering/lenis
  * Warning: If you use `<OrbitControls/>` inside a `<View/>`, you may need `data-lenis-prevent` to prevent jittering.
  */
-export function Lenis({ children, ...props }) {
+export function Lenis({ children, ...props }: LenisProps) {
   const lenisRef = useRef<typeof LenisContext>();
 
   useEffect(() => {

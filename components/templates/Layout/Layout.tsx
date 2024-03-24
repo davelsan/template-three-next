@@ -1,12 +1,14 @@
 'use client';
 
-import { PropsWithChildren, useRef } from 'react';
+import { PropsWithChildren } from 'react';
+
+import { useImmutableRef } from '@hooks/useImmutableRef';
 
 import { Lenis } from '../Lenis';
 import { Scene } from '../Scene';
 
 export function Layout({ children }: PropsWithChildren) {
-  const ref = useRef();
+  const ref = useImmutableRef<HTMLDivElement>();
   return (
     <div ref={ref}>
       <Lenis

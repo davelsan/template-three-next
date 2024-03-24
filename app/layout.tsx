@@ -1,6 +1,12 @@
+import { ReactNode } from 'react';
+
 import { Layout } from '@templates/Layout';
 
 import './global.css';
+
+type RootLayoutProps = {
+  children: ReactNode;
+};
 
 export const metadata = {
   title: 'Next.js + Three.js',
@@ -8,7 +14,7 @@ export const metadata = {
     'A minimal starter for Next.js, React Three Fiber, and Three.js.',
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="antialiased">
       {/*
