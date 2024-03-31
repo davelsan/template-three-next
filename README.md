@@ -16,5 +16,4 @@ In this adaptation, I've added missing TypeScript types in various components an
 
 ### TODO
 
-- [ ] CVA and examples
 - [ ] Jotai for state management

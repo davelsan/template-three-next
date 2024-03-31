@@ -45,7 +45,7 @@ export function HomeView() {
           </p>
         </div>
         <div className="relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40">
-          <View className="relative h-full  sm:h-48 sm:w-full">
+          <View className="relative h-full sm:h-48 sm:w-full">
             <Suspense fallback={null}>
               <Dog
                 scale={2}
