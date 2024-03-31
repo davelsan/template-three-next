@@ -24,11 +24,13 @@
           // Folder aliases
           [
             "^@atoms",
-            "^@molecules",
+            "^@debug",
             "^@features",
             "^@helpers",
             "^@hooks",
+            "^@molecules",
             "^@organisms",
+            "^@shadcn",
             "^@shaders",
             "^@templates",
             "^@utils"

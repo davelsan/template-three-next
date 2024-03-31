@@ -6,6 +6,8 @@ I wanted to have a starter template to develop more complex experiences while ta
 
 In this adaptation, I've added missing TypeScript types in various components and hooks, included `3.x` features such as [Lenis](https://github.com/darkroomengineering/lenis/tree/main) support, extracted dynamic imports to barrel files for a more declarative syntax, and reorganized the codebase around feature folders.
 
+I am also figuring out how to integrate Tweakpane with Jotai to have a more consistent state management + debugging DX. It's a work in progress. It's all contained within the [debug](./debug) folder for now.
+
 ### Features
 
 - [Next.js](https://nextjs.org) with app router support.
@@ -13,7 +15,4 @@ In this adaptation, I've added missing TypeScript types in various components an
 - [TailwindCSS](https://tailwindcss.com) and [Class Variance Authority](https://cva.style/docs) for a great DX when styling components, primed to leverage [shadcn/ui](https://ui.shadcn.com) if desired.
 - Codebase organized around [features](./features) to compose the different pages and an incipient atomic design for [components](./components).
 - [TypeScript](https://www.typescriptlang.org) for type safety and great intellisense, together with sensible [ESLint](https://eslint.org) and [Prettier](https://prettier.io) configurations.
-
-### TODO
-
-- [ ] Jotai for state management
+- [Jotai](https://jotai.org) as the state management solution with support for [Tweakpane](https://tweakpane.github.io/docs) atoms.

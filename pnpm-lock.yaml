@@ -17,6 +17,9 @@ dependencies:
   '@studio-freight/react-lenis':
     specifier: ^0.0.46
     version: 0.0.46(@types/react@18.2.67)(react-dom@18.2.0)(react@18.2.0)
+  '@tweakpane/core':
+    specifier: ^2.0.3
+    version: 2.0.3
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -26,6 +29,9 @@ dependencies:
   glsl-random:
     specifier: ^0.0.5
     version: 0.0.5
+  jotai:
+    specifier: ^2.7.2
+    version: 2.7.2(@types/react@18.2.67)(react@18.2.0)
   lucide-react:
     specifier: ^0.363.0
     version: 0.363.0(react@18.2.0)
@@ -50,6 +56,9 @@ dependencies:
   three-stdlib:
     specifier: ^2.29.6
     version: 2.29.6(three@0.162.0)
+  tweakpane:
+    specifier: ^4.0.3
+    version: 4.0.3
 
 devDependencies:
   '@next/bundle-analyzer':
@@ -1870,6 +1879,10 @@ packages:
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
     dependencies:
       tslib: 2.6.2
+    dev: false
+
+  /@tweakpane/core@2.0.3:
+    resolution: {integrity: sha512-qHci4XA1Wngpwy8IzsLh5JEdscz8aDti/9YhyOaq01si+cgNDaZfwzTtXdn1+xTxSnCM+pW4Zb2/4eqn+K1ATw==}
     dev: false
 
   /@tweenjs/tween.js@23.1.1:
@@ -4529,6 +4542,22 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
 
+  /jotai@2.7.2(@types/react@18.2.67)(react@18.2.0):
+    resolution: {integrity: sha512-6Ft5kpNu8p93Ssf1Faoza3hYQZRIYp7rioK8MwTTFnbQKwUyZElwquPwl1h6U0uo9hC0jr+ghO3gcSjc6P35/Q==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=17.0.0'
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': 18.2.67
+      react: 18.2.0
+    dev: false
+
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -6529,6 +6558,10 @@ packages:
       - '@types/react'
       - immer
       - react
+    dev: false
+
+  /tweakpane@4.0.3:
+    resolution: {integrity: sha512-BlcWOAe8oe4c+k9pmLBARGdWB6MVZMszayekkixQXTgkxTaYoTUpHpwVEp+3HkoamZkomodpbBf0CkguIHTgLg==}
     dev: false
 
   /type-check@0.4.0:

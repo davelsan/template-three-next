@@ -3,12 +3,16 @@
     "baseUrl": ".",
     "paths": {
       "@atoms/*": ["./components/atoms/*"],
+      "@debug/*": ["./debug/*"],
       "@features/*": ["./features/*"],
+      "@helpers/*": ["./helpers/*"],
       "@hooks/*": ["./hooks/*"],
       "@molecules/*": ["./components/molecules/*"],
       "@organisms/*": ["./components/organisms/*"],
       "@shadcn/*": ["./components/shadcn/*"],
+      "@shaders/*": ["./components/shaders/*"],
       "@templates/*": ["./components/templates/*"],
+      "@utils/*": ["./utils/*"],
     },
     "target": "es5",
     "lib": [

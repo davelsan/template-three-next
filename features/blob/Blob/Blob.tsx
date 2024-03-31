@@ -1,11 +1,19 @@
+import { atom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MeshDistortMaterial, useCursor } from '@react-three/drei';
 
+import { useAtomWithTweak } from '@debug/TweakpaneProvider';
+
+const colorAtom = atom('#1fb2f5');
+
 export const Blob = ({ route = '/', ...props }) => {
   const router = useRouter();
   const [hovered, hover] = useState(false);
+  const [color] = useAtomWithTweak('color', colorAtom);
+
   useCursor(hovered);
+
   return (
     <mesh
       onClick={() => router.push(route)}
@@ -16,7 +24,7 @@ export const Blob = ({ route = '/', ...props }) => {
       <sphereGeometry args={[1, 64, 64]} />
       <MeshDistortMaterial
         roughness={0.5}
-        color={hovered ? 'hotpink' : '#1fb2f5'}
+        color={hovered ? 'hotpink' : color}
       />
     </mesh>
   );
