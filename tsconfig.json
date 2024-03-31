@@ -11,6 +11,7 @@
       "@organisms/*": ["./components/organisms/*"],
       "@shadcn/*": ["./components/shadcn/*"],
       "@shaders/*": ["./components/shaders/*"],
+      "@state/*": ["./state/*"],
       "@templates/*": ["./components/templates/*"],
       "@utils/*": ["./utils/*"],
     },

@@ -1,10 +1,13 @@
 'use client';
 
+import { useAtom, useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useMemo, useRef, useState } from 'react';
 import { EllipseCurve, Group } from 'three';
 import { Line, useCursor, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+
+import { blobColorAtom } from '@state/blobColor';
 
 export const Logo = ({ route = '/blob', ...props }) => {
   const groupRef = useRef<Group>(null);
@@ -16,6 +19,8 @@ export const Logo = ({ route = '/blob', ...props }) => {
       new EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(100),
     []
   );
+
+  const blobColor = useAtomValue(blobColorAtom);
 
   useCursor(hovered);
   useFrame((state, delta) => {
@@ -52,7 +57,7 @@ export const Logo = ({ route = '/blob', ...props }) => {
         <sphereGeometry args={[0.55, 64, 64]} />
         <meshPhysicalMaterial
           roughness={0.5}
-          color={hovered ? 'hotpink' : '#1fb2f5'}
+          color={hovered ? 'hotpink' : blobColor}
         />
       </mesh>
     </group>

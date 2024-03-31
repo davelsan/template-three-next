@@ -1,16 +1,14 @@
-import { atom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { MeshDistortMaterial, useCursor } from '@react-three/drei';
 
 import { useAtomWithTweak } from '@debug/TweakpaneProvider';
-
-const colorAtom = atom('#1fb2f5');
+import { blobColorAtom } from '@state/blobColor';
 
 export const Blob = ({ route = '/', ...props }) => {
   const router = useRouter();
   const [hovered, hover] = useState(false);
-  const [color] = useAtomWithTweak('color', colorAtom);
+  const [color] = useAtomWithTweak('color', blobColorAtom);
 
   useCursor(hovered);
 

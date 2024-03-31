@@ -32,6 +32,7 @@
             "^@organisms",
             "^@shadcn",
             "^@shaders",
+            "^@state",
             "^@templates",
             "^@utils"
           ],
