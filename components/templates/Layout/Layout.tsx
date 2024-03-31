@@ -12,7 +12,7 @@ export function Layout({ children }: PropsWithChildren) {
   const divRef = useImmutableRef<HTMLDivElement>();
   return (
     <div ref={divRef}>
-      <TweakpaneProvider container={divRef}>
+      <TweakpaneProvider>
         <Lenis
           root
           options={{

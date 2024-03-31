@@ -1,19 +1,9 @@
-import {
-  atom,
-  createStore,
-  Provider,
-  SetStateAction,
-  useAtom,
-  useSetAtom,
-} from 'jotai';
-import { usePathname } from 'next/navigation';
+import { atom, getDefaultStore, Provider } from 'jotai';
 import {
   createContext,
-  MutableRefObject,
   PropsWithChildren,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { Pane } from 'tweakpane';
@@ -21,47 +11,87 @@ import { BindingParams, BindingTarget } from '@tweakpane/core';
 
 import { StateBundle } from './StateBundle';
 
-type TweakpaneProviderProps<T> = {
-  container?: MutableRefObject<T>;
+type UseAtomWithTweakOptions<T> = {
+  /**
+   * Automatically refresh the tweakpane UI when the atom changes.
+   */
+  listen?: boolean;
+  /**
+   * Additional tweakpane binding params.
+   */
+  params?: BindingParams;
+  /**
+   * Non-reactive callback function.
+   * @param value current atom value
+   */
+  subscriber?: (value: T) => void;
+  /**
+   * Fire the subscriber immediately after binding. This option has no effect
+   * if `subscriber` is not defined.
+   */
+  fireImmediately?: boolean;
 };
 
-const tweakpaneStore = createStore();
-
+const jotaiStore = getDefaultStore();
 const PaneContext = createContext<Pane | undefined>(undefined);
 
-export function TweakpaneProvider<T extends HTMLElement>({
-  children,
-  container,
-}: PropsWithChildren<TweakpaneProviderProps<T>>) {
-  const pathname = usePathname();
+/**
+ * Provider component to initialize and dispose the tweakpane instance. A
+ * custom plugin is registered to support the reader and writer functions
+ * that link tweakpane to the jotai atom.
+ */
+export function TweakpaneProvider({ children }: PropsWithChildren) {
   const [pane, setPane] = useState<Pane>();
 
   useEffect(() => {
-    let _pane = pane;
-    if (!_pane) {
-      _pane = new Pane({ title: 'Debug' });
-      _pane.registerPlugin(StateBundle);
-      _pane.hidden = true;
-      setPane(_pane);
-    }
-  }, [container, pane]);
+    const _pane = new Pane({ title: 'Debug' });
+    _pane.registerPlugin(StateBundle);
+    _pane.hidden = true;
+    setPane(_pane);
+    return () => {
+      _pane.dispose();
+    };
+  }, []);
 
   return pane ? (
     <PaneContext.Provider value={pane}>
-      <Provider store={tweakpaneStore}>{children}</Provider>
+      <Provider store={jotaiStore}>{children}</Provider>
     </PaneContext.Provider>
   ) : null;
 }
 
-type UseAtomWithTweakOptions = {
-  listen?: boolean;
-  params?: BindingParams;
-};
-
+/**
+ * Bind an atom to a tweakpane instance. The `options` object should be stable.
+ *
+ * @example reactive tweak
+ * const color = useAtomValue(atomWithTweak);
+ *
+ * @example non-reactive tweak
+ * useAtomWithTweak(
+ *   'color',
+ *   blobColorAtom,
+ *   useMemo(
+ *     () => ({
+ *       listen: true,
+ *       subscriber: (value: string) => {
+ *         const material = materialRef.current;
+ *         if (!material) return;
+ *         material.color.set(new Color(value));
+ *       },
+ *       fireImmediately: true,
+ *     }),
+ *   []
+ *   )
+ * );
+ *
+ * @param key tweak key
+ * @param tweakAtom atom to bind
+ * @param options binding options
+ */
 export function useAtomWithTweak<T>(
   key: string,
   tweakAtom: ReturnType<typeof atom<T>>,
-  options?: UseAtomWithTweakOptions
+  options?: UseAtomWithTweakOptions<T>
 ) {
   const pane = useContext(PaneContext);
 
@@ -71,8 +101,8 @@ export function useAtomWithTweak<T>(
 
   useEffect(() => {
     // Initialize the atom in the store or reuse if existing
-    const initialValue = tweakpaneStore.get(tweakAtom) ?? tweakAtom.init;
-    tweakpaneStore.set(tweakAtom, initialValue);
+    const initialValue = jotaiStore.get(tweakAtom) ?? tweakAtom.init;
+    jotaiStore.set(tweakAtom, initialValue);
 
     // Dummy object to satisfy tweakpane `addBinding`
     const obj = { [key]: initialValue };
@@ -80,73 +110,40 @@ export function useAtomWithTweak<T>(
     // Binding with custom reader/writer functions
     const binding = pane.addBinding(obj, key, {
       ...options?.params,
-      reader: () => tweakpaneStore.get(tweakAtom),
-      writer: (target: BindingTarget, value: T) => {
-        tweakpaneStore.set(tweakAtom, value);
+      reader: () => jotaiStore.get(tweakAtom),
+      writer: (_: BindingTarget, value: T) => {
+        jotaiStore.set(tweakAtom, value);
       },
     });
 
+    // Create non-reactive updates in the tweakpane UI or elsewhere
+    const { subscriber, listen, fireImmediately } = options ?? {};
+    let unsub: (() => void) | undefined;
+    if (subscriber || listen) {
+      if (subscriber && fireImmediately) {
+        subscriber(jotaiStore.get(tweakAtom));
+      }
+      unsub = jotaiStore.sub(tweakAtom, () => {
+        options?.listen && binding.refresh();
+        subscriber && subscriber(jotaiStore.get(tweakAtom));
+      });
+    }
+
+    // Ensure the pane is visible after adding a binding
     if (pane.hidden) {
       pane.hidden = false;
     }
 
     return () => {
       pane.remove(binding);
+      if (unsub) {
+        unsub();
+      }
       if (pane.children.length === 0) {
         pane.hidden = true;
       }
     };
-  }, [key, pane, tweakAtom]); // do NOT add `params` unless providing a stable object or equality function
+  }, [key, pane, options, tweakAtom]); // do NOT add `params` unless providing a stable object or equality function
 
-  return useAtom(tweakAtom);
-}
-
-export function useAtomWithStableTweak<T>(
-  key: string,
-  tweakAtom: ReturnType<typeof atom<T>>,
-  subscriber: (value: T) => void,
-  options?: UseAtomWithTweakOptions
-): [T, (...args: [SetStateAction<T>]) => void] {
-  const pane = useContext(PaneContext);
-
-  if (!pane) {
-    throw new Error('useAtomWithTweak must be used within a TweakpaneProvider');
-  }
-
-  useEffect(() => {
-    // Initialize the atom in the store
-    const initialValue = tweakpaneStore.get(tweakAtom) ?? tweakAtom.init;
-    tweakpaneStore.set(tweakAtom, initialValue);
-
-    // Dummy object to satisfy tweakpane `addBinding`
-    const obj = { [key]: initialValue };
-
-    // Binding with custom reader/writer functions
-    const binding = pane.addBinding(obj, key, {
-      ...options?.params,
-      reader: () => tweakpaneStore.get(tweakAtom),
-      writer: (target: BindingTarget, value: T) => {
-        tweakpaneStore.set(tweakAtom, value);
-      },
-    });
-
-    const unsub = tweakpaneStore.sub(tweakAtom, () => {
-      subscriber(tweakpaneStore.get(tweakAtom));
-    });
-
-    if (pane.hidden) {
-      pane.hidden = false;
-    }
-
-    return () => {
-      pane.remove(binding);
-      unsub();
-      if (pane.children.length === 0) {
-        pane.hidden = true;
-      }
-    };
-  }, [key, pane, subscriber, tweakAtom]); // do NOT add `params` unless providing a stable object or equality function
-
-  const setAtom = useSetAtom(tweakAtom);
-  return useMemo(() => [tweakAtom.init, setAtom], [tweakAtom.init, setAtom]);
+  return tweakAtom;
 }
