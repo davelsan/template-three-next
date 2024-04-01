@@ -7,8 +7,8 @@ import { EllipseCurve, Group } from 'three';
 import { Line, useCursor } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
-import { useAtomWithTweak } from '@debug/TweakpaneProvider';
 import { blobColorAtom } from '@features/blob/Blob/Blob';
+import { useAtomWithTweak } from '@state/debug';
 
 export const Logo = ({ route = '/blob', ...props }) => {
   const groupRef = useRef<Group>(null);

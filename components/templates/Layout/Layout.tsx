@@ -2,8 +2,8 @@
 
 import { PropsWithChildren } from 'react';
 
-import { TweakpaneProvider } from '@debug/TweakpaneProvider';
 import { useImmutableRef } from '@hooks/useImmutableRef';
+import { TweakpaneProvider } from '@state/debug';
 
 import { Lenis } from '../Lenis';
 import { Scene } from '../Scene';

@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { MeshDistortMaterial, useCursor } from '@react-three/drei';
 
-import { atomWithTweak, useAtomWithTweak } from '@debug/TweakpaneProvider';
+import { atomWithTweak, useAtomWithTweak } from '@state/debug';
 import { InferRef } from '@utils/type-guards/InferRef';
 
 export const blobColorAtom = atomWithTweak('#1fb2f5', 'blobColor', {
