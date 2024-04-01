@@ -92,7 +92,6 @@ export function atomWithTweak<T>(
  *
  * @example non-reactive tweak
  * useAtomWithTweak(
- *   'color',
  *   blobColorAtom,
  *   useCallback((value: string) => {
  *     const material = materialRef.current;
@@ -112,15 +111,16 @@ export function useAtomWithTweak<T>(
   fireImmediately?: boolean
 ) {
   const pane = useContext(PaneContext);
-  const pathname = usePathname();
+
+  if (!pane) {
+    throw new Error('useAtomWithTweak must be used within a TweakpaneProvider');
+  }
 
   const { valueAtom, keyAtom, optionsAtom } = useAtomValue(tweakAtom);
   const key = useAtomValue(keyAtom);
   const _options = useAtomValue(optionsAtom);
 
-  if (!pane) {
-    throw new Error('useAtomWithTweak must be used within a TweakpaneProvider');
-  }
+  const pathname = usePathname();
 
   useEffect(() => {
     // Initialize the atom in the store or reuse if existing
@@ -148,8 +148,8 @@ export function useAtomWithTweak<T>(
         subscriber(jotaiStore.get(valueAtom));
       }
       unsub = jotaiStore.sub(tweakAtom, () => {
-        _options?.listen && binding.refresh();
-        subscriber && subscriber(jotaiStore.get(valueAtom));
+        listen && binding.refresh();
+        subscriber?.(jotaiStore.get(valueAtom));
       });
     }
 
