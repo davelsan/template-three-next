@@ -1,13 +1,14 @@
 'use client';
 
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useMemo, useRef, useState } from 'react';
 import { EllipseCurve, Group } from 'three';
-import { Line, useCursor, useGLTF } from '@react-three/drei';
+import { Line, useCursor } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
-import { blobColorAtom } from '@state/blobColor';
+import { useAtomWithTweak } from '@debug/TweakpaneProvider';
+import { blobColorAtom } from '@features/blob/Blob/Blob';
 
 export const Logo = ({ route = '/blob', ...props }) => {
   const groupRef = useRef<Group>(null);
@@ -20,7 +21,7 @@ export const Logo = ({ route = '/blob', ...props }) => {
     []
   );
 
-  const blobColor = useAtomValue(blobColorAtom);
+  const blobColor = useAtomValue(useAtomWithTweak(blobColorAtom));
 
   useCursor(hovered);
   useFrame((state, delta) => {
