@@ -15,7 +15,8 @@ export function BlobView() {
             Next 3D Starter
           </h1>
           <p className="mb-8 text-2xl leading-normal">
-            A minimalist starter for React, React-three-fiber and Threejs.
+            The color tweak persists across routes and is reused by the Home
+            page logo.
           </p>
         </div>
       </div>

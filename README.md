@@ -6,7 +6,7 @@ I wanted to have a starter template to develop more complex experiences while ta
 
 In this adaptation, I've added missing TypeScript types in various components and hooks, included `3.x` features such as [Lenis](https://github.com/darkroomengineering/lenis/tree/main) support, extracted dynamic imports to barrel files for a more declarative syntax, and reorganized the codebase around feature folders.
 
-I am also figuring out how to integrate Tweakpane with Jotai to have a more consistent state management + debugging DX. It's a work in progress. It's all contained within the [debug](./debug) folder for now.
+I am also figuring out how to integrate Tweakpane with Jotai to have a more consistent state management + debugging DX. It's all contained within the [debug](./debug) folder for now.
 
 ### Features
 
