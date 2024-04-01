@@ -1,5 +1,6 @@
 'use client';
 
+import { Camera } from '@templates/Camera';
 import { Common } from '@templates/Common';
 import { View } from '@templates/View';
 
@@ -24,6 +25,7 @@ export function BlobView() {
       <View className="absolute top-0 flex h-screen w-full flex-col items-center justify-center">
         <Blob />
         <Common />
+        <Camera makeDefault fov={40} position={[0, 0, 6]} controls />
       </View>
     </>
   );

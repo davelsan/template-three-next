@@ -1,11 +1,8 @@
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-
 type CommonProps = {
   color?: string;
-  controls?: boolean;
 };
 
-export const Common = ({ color, controls }: CommonProps) => (
+export const Common = ({ color }: CommonProps) => (
   <>
     {color && <color attach="background" args={[color]} />}
     <ambientLight intensity={Math.PI} />
@@ -16,7 +13,5 @@ export const Common = ({ color, controls }: CommonProps) => (
       color="blue"
       intensity={3}
     />
-    <PerspectiveCamera makeDefault fov={40} position={[0, 0, 6]} />
-    {controls && <OrbitControls />}
   </>
 );

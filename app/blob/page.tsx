@@ -1,5 +1,5 @@
 import { BlobView } from '@features/blob/BlobView';
 
-export default function Page() {
+export default function BlobPage() {
   return <BlobView />;
 }

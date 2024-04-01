@@ -3,8 +3,10 @@ import { usePathname } from 'next/navigation';
 import { useContext, useEffect } from 'react';
 import { BindingTarget } from '@tweakpane/core';
 
+import { jotaiStore } from '@state/jotai/JotaiProvider';
+
 import { atomWithTweak } from './atomWithTweak';
-import { jotaiStore, PaneContext } from './TweakpaneProvider';
+import { PaneContext } from './TweakpaneProvider';
 
 /**
  * Bind an atom with tweak options to a tweakpane instance.

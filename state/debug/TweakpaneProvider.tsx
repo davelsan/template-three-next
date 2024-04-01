@@ -1,10 +1,7 @@
-import { getDefaultStore, Provider } from 'jotai';
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { Pane } from 'tweakpane';
 
 import { StateBundle } from '@debug/StateBundle';
-
-export const jotaiStore = getDefaultStore();
 
 export const PaneContext = createContext<Pane | undefined>(undefined);
 
@@ -27,8 +24,6 @@ export function TweakpaneProvider({ children }: PropsWithChildren) {
   }, []);
 
   return pane ? (
-    <PaneContext.Provider value={pane}>
-      <Provider store={jotaiStore}>{children}</Provider>
-    </PaneContext.Provider>
+    <PaneContext.Provider value={pane}>{children}</PaneContext.Provider>
   ) : null;
 }

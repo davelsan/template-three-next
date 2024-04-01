@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
+import { ComponentProps, Suspense } from 'react';
 
-export const View = dynamic(() => import('./View').then((mod) => mod.View), {
+const DynamicView = dynamic(() => import('./View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
     <div className="flex h-96 w-full flex-col items-center justify-center">
@@ -26,3 +27,11 @@ export const View = dynamic(() => import('./View').then((mod) => mod.View), {
     </div>
   ),
 });
+
+export function View(props: ComponentProps<typeof DynamicView>) {
+  return (
+    <Suspense fallback={null}>
+      <DynamicView {...props} />
+    </Suspense>
+  );
+}
