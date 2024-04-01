@@ -8,7 +8,7 @@ import { Line, useCursor } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
 import { blobColorAtom } from '@features/blob/Blob/Blob';
-import { useAtomWithTweak } from '@state/debug';
+import { useAtomWithBinding } from '@state/debug';
 
 export const Logo = ({ route = '/blob', ...props }) => {
   const groupRef = useRef<Group>(null);
@@ -21,7 +21,7 @@ export const Logo = ({ route = '/blob', ...props }) => {
     []
   );
 
-  const blobColor = useAtomValue(useAtomWithTweak(blobColorAtom));
+  const blobColor = useAtomValue(useAtomWithBinding(blobColorAtom));
 
   useCursor(hovered);
   useFrame((state, delta) => {

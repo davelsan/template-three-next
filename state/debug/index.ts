@@ -1,4 +1,4 @@
-export * from './atomWithTweak';
+export * from './atomWithBinding';
 export * from './TweakpaneProvider';
-export * from './useAtomWithTweak';
+export * from './useAtomWithBinding';
 export { jotaiStore } from '@state/jotai/JotaiProvider';

@@ -20,7 +20,7 @@ type AtomWithTweakOptions = {
  * Create an atom with tweakpane binding args.
  *
  * @example reactive tweak
- * const color = atomWithTweak(1, {
+ * const color = atomWithBinding(1, {
  *   listen: true,
  *   params: { min: 0, max: 10 },
  * });
@@ -29,7 +29,7 @@ type AtomWithTweakOptions = {
  * @param key tweakpane key
  * @param options binding options
  */
-export function atomWithTweak<T>(
+export function atomWithBinding<T>(
   value: T,
   key: string,
   options?: AtomWithTweakOptions

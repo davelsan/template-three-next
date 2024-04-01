@@ -5,17 +5,17 @@ import { BindingTarget } from '@tweakpane/core';
 
 import { jotaiStore } from '@state/jotai/JotaiProvider';
 
-import { atomWithTweak } from './atomWithTweak';
+import { atomWithBinding } from './atomWithBinding';
 import { PaneContext } from './TweakpaneProvider';
 
 /**
- * Bind an atom with tweak options to a tweakpane instance.
+ * Bind an atom with binding params to the tweakpane instance.
  *
  * @example reactive tweak
- * const color = useAtomValue(atomWithTweak);
+ * const color = useAtomValue(atomWithBinding);
  *
  * @example non-reactive tweak
- * useAtomWithTweak(
+ * useAtomWithBinding(
  *   blobColorAtom,
  *   useCallback((value: string) => {
  *     const material = materialRef.current;
@@ -29,15 +29,17 @@ import { PaneContext } from './TweakpaneProvider';
  * @param subscriber non-reactive callback function
  * @param fireImmediately fire the subscriber immediately after binding
  */
-export function useAtomWithTweak<T>(
-  tweakAtom: ReturnType<typeof atomWithTweak<T>>,
+export function useAtomWithBinding<T>(
+  tweakAtom: ReturnType<typeof atomWithBinding<T>>,
   subscriber?: (value: T) => void,
   fireImmediately?: boolean
 ) {
   const pane = useContext(PaneContext);
 
   if (!pane) {
-    throw new Error('useAtomWithTweak must be used within a TweakpaneProvider');
+    throw new Error(
+      'useAtomWithBinding must be used within a TweakpaneProvider'
+    );
   }
 
   const { valueAtom, keyAtom, optionsAtom } = useAtomValue(tweakAtom);

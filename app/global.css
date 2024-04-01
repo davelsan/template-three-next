@@ -88,8 +88,8 @@
 }
 
 /**
- * Tweakpane input binding value
+ * Tweakpane input binding value (excluding buttons).
  */
-.tp-lblv_v {
+.tp-lblv_v:not(:has(.tp-btnv_t)) {
   width: 62.7% !important; /* 270px */
 }
