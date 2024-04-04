@@ -10,7 +10,7 @@ dependencies:
     version: 10.2.5(next@14.1.4)(webpack@5.91.0)
   '@react-three/drei':
     specifier: ^9.105.1
-    version: 9.105.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.163.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0)
+    version: 9.105.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.162.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0)
   '@react-three/fiber':
     specifier: ^8.16.1
     version: 8.16.1(react-dom@18.2.0)(react@18.2.0)(three@0.163.0)
@@ -40,7 +40,7 @@ dependencies:
     version: 14.1.4(@babel/core@7.24.4)(react-dom@18.2.0)(react@18.2.0)
   r3f-perf:
     specifier: ^7.2.1
-    version: 7.2.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.163.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0)
+    version: 7.2.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.162.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -74,8 +74,8 @@ devDependencies:
     specifier: ^18.2.74
     version: 18.2.74
   '@types/three':
-    specifier: ^0.163.0
-    version: 0.163.0
+    specifier: ^0.162.0
+    version: 0.162.0
   autoprefixer:
     specifier: ^10.4.19
     version: 10.4.19(postcss@8.4.38)
@@ -1715,7 +1715,7 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei@9.105.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.163.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0):
+  /@react-three/drei@9.105.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.162.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0):
     resolution: {integrity: sha512-yDplhbP8MOGIJmYpBqSzgQ1oZ2e3J6172Q95M69PT37jLcpTQKrVDAlMktoGdAlqSV+924XVr75ZYaHDP0Zhfw==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
@@ -1737,7 +1737,7 @@ packages:
       detect-gpu: 5.0.38
       glsl-noise: 0.0.0
       hls.js: 1.3.5
-      maath: 0.10.7(@types/three@0.163.0)(three@0.163.0)
+      maath: 0.10.7(@types/three@0.162.0)(three@0.163.0)
       meshline: 3.3.0(three@0.163.0)
       react: 18.2.0
       react-composer: 5.0.3(react@18.2.0)
@@ -2016,6 +2016,15 @@ packages:
   /@types/stats.js@0.17.3:
     resolution: {integrity: sha512-pXNfAD3KHOdif9EQXZ9deK82HVNaXP5ZIF5RP2QG6OQFNTaY2YIetfrE9t528vEreGQvEPRDDc8muaoYeK0SxQ==}
 
+  /@types/three@0.162.0:
+    resolution: {integrity: sha512-0j5yZcVukVIhrhSIC7+LmBPkkMoMuEJ1AfYBZfgNytdYqYREMuiyXWhYOMeZLBElTEAlJIZn7r2W3vqTIgjWlg==}
+    dependencies:
+      '@tweenjs/tween.js': 23.1.1
+      '@types/stats.js': 0.17.3
+      '@types/webxr': 0.5.14
+      fflate: 0.6.10
+      meshoptimizer: 0.18.1
+
   /@types/three@0.163.0:
     resolution: {integrity: sha512-uIdDhsXRpQiBUkflBS/i1l3JX14fW6Ot9csed60nfbZNXHDTRsnV2xnTVwXcgbvTiboAR4IW+t+lTL5f1rqIqA==}
     dependencies:
@@ -2024,6 +2033,7 @@ packages:
       '@types/webxr': 0.5.14
       fflate: 0.8.2
       meshoptimizer: 0.18.1
+    dev: false
 
   /@types/trusted-types@2.0.7:
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -3686,6 +3696,7 @@ packages:
 
   /fflate@0.8.2:
     resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
+    dev: false
 
   /file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
@@ -4868,13 +4879,13 @@ packages:
       react: 18.2.0
     dev: false
 
-  /maath@0.10.7(@types/three@0.163.0)(three@0.163.0):
+  /maath@0.10.7(@types/three@0.162.0)(three@0.163.0):
     resolution: {integrity: sha512-zQ2xd7dNOIVTjAS+hj22fyj1EFYmOJX6tzKjZ92r6WDoq8hyFxjuGA2q950tmR4iC/EKXoMQdSipkaJVuUHDTg==}
     peerDependencies:
       '@types/three': '>=0.144.0'
       three: '>=0.144.0'
     dependencies:
-      '@types/three': 0.163.0
+      '@types/three': 0.162.0
       three: 0.163.0
     dev: false
 
@@ -5540,7 +5551,7 @@ packages:
     requiresBuild: true
     dev: true
 
-  /r3f-perf@7.2.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.163.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0):
+  /r3f-perf@7.2.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.162.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0):
     resolution: {integrity: sha512-asMr55SqotdT7qtd4gCHGdISGUOL5D3W62LnSm/9lkDIaC/eYg0oh8Vdu3LuyT19tS/O6x1nbPZ11UGdrDJKkA==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
@@ -5557,7 +5568,7 @@ packages:
         optional: true
     dependencies:
       '@radix-ui/react-icons': 1.3.0(react@18.2.0)
-      '@react-three/drei': 9.105.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.163.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0)
+      '@react-three/drei': 9.105.1(@react-three/fiber@8.16.1)(@types/react@18.2.74)(@types/three@0.162.0)(react-dom@18.2.0)(react@18.2.0)(three@0.163.0)
       '@react-three/fiber': 8.16.1(react-dom@18.2.0)(react@18.2.0)(three@0.163.0)
       '@stitches/react': 1.2.8(react@18.2.0)
       '@utsubo/events': 0.1.7(react@18.2.0)
