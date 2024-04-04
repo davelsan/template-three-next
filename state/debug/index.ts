@@ -1,3 +1,3 @@
 export * from './atomWithBinding';
-export * from './TweakpaneProvider';
+export * from './Tweakpane';
 export { jotaiStore } from '@state/jotai/JotaiProvider';

@@ -1,9 +1,9 @@
-import { atom, Getter, Setter, useAtomValue, useSetAtom } from 'jotai';
+import { atom, Getter, Setter } from 'jotai';
 import { useEffect } from 'react';
 import { ButtonApi, ButtonParams, TpMouseEvent } from '@tweakpane/core';
 
-import { Tweakpane } from '@state/debug/TweakpaneProvider';
-import { jotaiStore } from '@state/jotai/JotaiProvider';
+import { jotaiStore } from '../jotai/JotaiProvider';
+import { tweakpaneAtom, tweakpanePathsAtom } from './Tweakpane';
 
 type AtomWithButtonOptions = {
   /**
@@ -56,16 +56,34 @@ export function atomWithButton(
   const valueAtom = atom(false);
 
   valueAtom.onMount = () => {
+    const { get, set } = jotaiStore;
+
+    // Event listener to trigger a re-render on button click
     const onClick = (e: TpMouseEvent<ButtonApi>) => {
-      const { get, set } = jotaiStore;
       options?.callback?.(e, get, set);
       set(valueAtom, (val) => !val);
     };
-    const buttonApi = Tweakpane.addButton(params);
+
+    // Add the button to the tweakpane instance and set its event listener
+    const pane = get(tweakpaneAtom);
+    const buttonApi = pane.addButton(params);
     buttonApi.on('click', onClick);
+
+    // Set the `paths` config, if provided
+    const paths = options?.paths;
+    if (paths) {
+      set(tweakpanePathsAtom, (prev) => {
+        const newValue = [buttonApi, paths] as const;
+        return [...prev, newValue];
+      });
+    }
+
     return () => {
+      set(tweakpanePathsAtom, (prev) => {
+        return prev.filter(([b]) => !Object.is(b, buttonApi));
+      });
       buttonApi.off('click', onClick);
-      Tweakpane.remove(buttonApi);
+      pane.remove(buttonApi);
     };
   };
 

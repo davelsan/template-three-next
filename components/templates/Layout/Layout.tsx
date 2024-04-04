@@ -1,6 +1,5 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { Perf } from 'r3f-perf';
 import { PropsWithChildren } from 'react';
 import { ACESFilmicToneMapping } from 'three';
@@ -8,7 +7,7 @@ import { Preload, View } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
 import { useImmutableRef } from '@hooks/useImmutableRef';
-import { TweakpaneProvider } from '@state/debug';
+import { Tweakpane } from '@state/debug';
 import { JotaiProvider } from '@state/jotai/JotaiProvider';
 
 import { Lenis } from '../Lenis';
@@ -18,7 +17,7 @@ export function Layout({ children }: PropsWithChildren) {
   return (
     <div ref={divRef}>
       <JotaiProvider>
-        <TweakpaneProvider>
+        <Tweakpane>
           <Lenis
             root
             options={{
@@ -47,7 +46,7 @@ export function Layout({ children }: PropsWithChildren) {
               <Preload all />
             </Canvas>
           </Lenis>
-        </TweakpaneProvider>
+        </Tweakpane>
       </JotaiProvider>
     </div>
   );

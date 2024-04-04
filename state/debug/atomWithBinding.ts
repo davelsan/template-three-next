@@ -3,8 +3,8 @@ import { Getter, SetStateAction, Setter } from 'jotai/index';
 import { useEffect } from 'react';
 import { BindingParams, BindingTarget } from '@tweakpane/core';
 
-import { Tweakpane } from '@state/debug/TweakpaneProvider';
-import { jotaiStore } from '@state/jotai/JotaiProvider';
+import { jotaiStore } from '../jotai/JotaiProvider';
+import { tweakpaneAtom, tweakpanePathsAtom } from './Tweakpane';
 
 type AtomWithTweakOptions = {
   /**
@@ -17,6 +17,7 @@ type AtomWithTweakOptions = {
   params?: BindingParams;
   /**
    * Routes in which the tweak should be visible.
+   * Defaults to all routes.
    */
   paths?: string[];
 };
@@ -59,11 +60,15 @@ export function atomWithBinding<T>(
   );
 
   bindingAtom.onMount = () => {
-    const binding = Tweakpane.addBinding(key, value, {
+    const { get, set, sub } = jotaiStore;
+
+    const pane = get(tweakpaneAtom);
+    const obj = { [key]: value };
+    const binding = pane.addBinding(obj, key, {
       ...options?.params,
-      reader: () => jotaiStore.get(bindingAtom),
+      reader: () => get(bindingAtom),
       writer: (_: BindingTarget, value: T) => {
-        jotaiStore.set(bindingAtom, value);
+        set(bindingAtom, value);
       },
     });
 
@@ -71,15 +76,27 @@ export function atomWithBinding<T>(
     const { listen } = options ?? {};
     let unsubListener: (() => void) | undefined;
     if (listen) {
-      unsubListener = jotaiStore.sub(bindingAtom, () => {
+      unsubListener = sub(bindingAtom, () => {
         listen && binding.refresh();
       });
     }
 
+    // Set the `paths` config, if provided
+    const paths = options?.paths;
+    if (paths) {
+      set(tweakpanePathsAtom, (prev) => {
+        const newValue = [binding, paths] as const;
+        return [...prev, newValue];
+      });
+    }
+
     return () => {
+      set(tweakpanePathsAtom, (prev) =>
+        prev.filter(([b]) => !Object.is(b, binding))
+      );
       unsubListener?.();
       binding.dispose();
-      Tweakpane.remove(binding);
+      pane.remove(binding);
     };
   };
 

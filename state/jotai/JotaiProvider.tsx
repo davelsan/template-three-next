@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react';
 /**
  * Application-wide jotai store. A new one is created instead of reusing the
  * default store to prevent a bug whereby two different jotai instances were
- * being created. It might be related to the TweakpaneProvider and its related
+ * being created. It might be related to the Tweakpane and its related
  * atoms. Need to investigate further.
  */
 export const jotaiStore = createStore();
