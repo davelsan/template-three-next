@@ -1,9 +1,46 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
-import { Pane } from 'tweakpane';
+import { BladeApi, Pane } from 'tweakpane';
+import { BindingApi, BindingParams, ButtonParams } from '@tweakpane/core';
 
 import { StateBundle } from '@debug/StateBundle';
 
 export const PaneContext = createContext<Pane | undefined>(undefined);
+
+export class Tweakpane {
+  private static _pane: Pane;
+  private static _bindings: Record<string, BindingApi> = {};
+
+  public static get pane() {
+    if (!this._pane) {
+      throw new Error(
+        'Tweak atoms require the TweakpaneProvider to be initialized'
+      );
+    }
+    return this._pane;
+  }
+
+  public static set pane(pane: Pane) {
+    this._pane = pane;
+  }
+
+  public static addBinding<T>(
+    key: string,
+    value: T,
+    params?: BindingParams,
+    paths?: string[]
+  ) {
+    const obj = { [key]: value };
+    return this._pane.addBinding(obj, key, params);
+  }
+
+  public static addButton(params: ButtonParams) {
+    return this._pane.addButton(params);
+  }
+
+  public static remove(binding: BladeApi) {
+    this._pane.remove(binding);
+  }
+}
 
 /**
  * Provider component to initialize and dispose the tweakpane instance. A
@@ -26,12 +63,12 @@ export function TweakpaneProvider({ children }: PropsWithChildren) {
    * - No subscriber/listener cleanup on component unmount.
    */
   useEffect(() => {
-    const _pane = new Pane({ title: 'Debug' });
-    _pane.registerPlugin(StateBundle);
-    _pane.hidden = true;
-    setPane(_pane);
+    Tweakpane.pane = new Pane({ title: 'Debug' });
+    Tweakpane.pane.registerPlugin(StateBundle);
+    // Tweakpane.pane.hidden = true;
+    setPane(Tweakpane.pane);
     return () => {
-      _pane.dispose();
+      Tweakpane.pane.dispose();
     };
   }, []);
 

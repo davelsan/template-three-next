@@ -4,12 +4,13 @@ import { useRef, useState } from 'react';
 import { MeshDistortMaterial, useCursor } from '@react-three/drei';
 import { MeshProps } from '@react-three/fiber';
 
-import { atomWithBinding, useAtomWithBinding } from '@state/debug';
+import { atomWithBinding } from '@state/debug';
 import { InferRef } from '@utils/type-helpers/InferRef';
 
-export const blobColorAtom = atomWithBinding('#1fb2f5', 'blobColor', {
-  paths: ['/blob'],
-});
+export const [blobColorAtom, useColorListener] = atomWithBinding(
+  'blobColor',
+  '#1fb2f5'
+);
 
 interface BlobProps extends MeshProps {
   route?: string;
@@ -19,8 +20,8 @@ export const Blob = ({ route = '/', ...props }: BlobProps) => {
   const router = useRouter();
   const materialRef = useRef<InferRef<typeof MeshDistortMaterial>>(null);
   const [hovered, hover] = useState(false);
-  const color = useAtomValue(useAtomWithBinding(blobColorAtom));
 
+  const color = useAtomValue(blobColorAtom);
   useCursor(hovered);
 
   return (
