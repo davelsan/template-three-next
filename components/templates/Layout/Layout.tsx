@@ -2,7 +2,6 @@
 
 import { Perf } from 'r3f-perf';
 import { PropsWithChildren } from 'react';
-import { ACESFilmicToneMapping } from 'three';
 import { Preload, View } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
@@ -37,9 +36,6 @@ export function Layout({ children }: PropsWithChildren) {
               }}
               eventSource={divRef}
               eventPrefix="client"
-              onCreated={(state) =>
-                (state.gl.toneMapping = ACESFilmicToneMapping)
-              }
             >
               <Perf position="bottom-right" />
               <View.Port />
