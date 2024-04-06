@@ -51,7 +51,7 @@ export function Tweakpane({ children }: PropsWithChildren) {
     if (!pane) return;
     // Remove blades not associated with the current pathname.
     bindingPaths
-      .filter(([_, paths]) => !paths.includes(pathname))
+      .filter(([_, paths]) => paths.length > 0 && !paths.includes(pathname))
       .forEach(([binding]) => pane.remove(binding));
     // Hide tweakpane if there are no blades to show.
     pane.hidden = pane.children.length === 0;

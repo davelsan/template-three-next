@@ -70,13 +70,11 @@ export function atomWithButton(
     buttonApi.on('click', onClick);
 
     // Set the `paths` config, if provided
-    const paths = options?.paths;
-    if (paths) {
-      set(tweakpanePathsAtom, (prev) => {
-        const newValue = [buttonApi, paths] as const;
-        return [...prev, newValue];
-      });
-    }
+    const paths = options?.paths ?? [];
+    set(tweakpanePathsAtom, (prev) => {
+      const newValue = [buttonApi, paths] as const;
+      return [...prev, newValue];
+    });
 
     return () => {
       set(tweakpanePathsAtom, (prev) => {

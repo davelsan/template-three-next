@@ -82,13 +82,12 @@ export function atomWithBinding<T>(
     }
 
     // Set the `paths` config, if provided
-    const paths = options?.paths;
-    if (paths) {
-      set(tweakpanePathsAtom, (prev) => {
-        const newValue = [binding, paths] as const;
-        return [...prev, newValue];
-      });
-    }
+    // Set the `paths` config
+    const paths = options?.paths ?? [];
+    set(tweakpanePathsAtom, (prev) => {
+      const newValue = [binding, paths] as const;
+      return [...prev, newValue];
+    });
 
     return () => {
       set(tweakpanePathsAtom, (prev) =>
