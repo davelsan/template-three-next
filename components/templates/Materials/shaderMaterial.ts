@@ -17,6 +17,8 @@ import {
 } from 'three';
 import { Node } from '@react-three/fiber';
 
+import { InferConstructableType } from '@helpers/types/InferConstructableType';
+
 /**
  * Valid uniform value types.
  */
@@ -49,10 +51,12 @@ type UniformsObject = {
 /**
  * Shader material params without the factory function arguments.
  */
-type ShaderMaterialParams = Omit<
+type ShaderMaterialParams<T> = Omit<
   ShaderMaterialParameters,
   'uniforms' | 'vertexShader' | 'fragmentShader'
->;
+> & {
+  uniforms?: T;
+};
 
 /**
  * Helper function to infer the custom shader material uniforms type.
@@ -63,19 +67,19 @@ type InferUniformsType<T> =
     : never;
 
 /**
+ * Type for the `<shaderMaterial />` component ref to use with `useRef`.
+ */
+export type ShaderMaterialRef<MaterialType> =
+  InferConstructableType<MaterialType>;
+
+/**
  * Type for the `<shaderMaterial />` component to use in the JSX namespace
  * augmentation.
  */
 export type ShaderMaterialComponent<MaterialType> = Node<
-  InferUniformsType<MaterialType> & ShaderMaterial,
+  InferConstructableType<MaterialType>,
   [InferUniformsType<MaterialType>]
 >;
-
-/**
- * Type for the `<shaderMaterial />` component ref to use with `useRef`.
- */
-export type ShaderMaterialRef<MaterialType> = InferUniformsType<MaterialType> &
-  ShaderMaterial;
 
 /**
  * Shader material factory function.
@@ -92,11 +96,14 @@ export type ShaderMaterialRef<MaterialType> = InferUniformsType<MaterialType> &
  * @example declarative use of the CustomMaterial component
  * // extend the component pool
  * extend({ CustomMaterial });
+ * // Create the ref and component types
+ * export type CustomMaterialRef = ShaderMaterialRef<CustomMaterial>;
+ * export type CustomMaterialComponent = ShaderMaterialComponent<CustomMaterial>;
  * // augment the JSX namespace (optional)
  * declare global {
  *   namespace JSX {
  *     interface IntrinsicElements {
- *       customMaterial: ShaderMaterialComponent<CustomMaterial>;
+ *       customMaterial: CustomMaterialComponent;
  *     }
  *   }
  * }
@@ -126,7 +133,7 @@ export function shaderMaterial<T extends UniformsInput>(
   vertexShader: ShaderMaterialParameters['vertexShader'],
   fragmentShader: ShaderMaterialParameters['fragmentShader']
 ) {
-  const material = class CustomMaterial extends ShaderMaterial {
+  class CustomMaterial extends ShaderMaterial {
     public static key: string;
 
     public get key() {
@@ -136,7 +143,7 @@ export function shaderMaterial<T extends UniformsInput>(
     constructor({
       uniforms,
       ...args
-    }: ShaderMaterialParams & { uniforms?: T } = {}) {
+    }: ShaderMaterialParams<T> | undefined = {}) {
       const entries = Object.entries(uniforms ?? uniformProps);
 
       // Create the uniforms object
@@ -160,10 +167,11 @@ export function shaderMaterial<T extends UniformsInput>(
         })
       );
     }
-  };
+  }
+  const material = CustomMaterial;
   material.key = MathUtils.generateUUID();
 
-  return material as unknown as { key: string } & (new () => typeof material &
-    T &
-    ShaderMaterial);
+  return material as unknown as { key: string } & (new (
+    args?: ShaderMaterialParams<T>
+  ) => CustomMaterial & T);
 }

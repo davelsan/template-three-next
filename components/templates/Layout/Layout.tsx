@@ -24,7 +24,6 @@ export function Layout({ children }: PropsWithChildren) {
               syncTouch: true,
             }}
           >
-            {children}
             <Canvas
               style={{
                 position: 'fixed',
@@ -41,6 +40,7 @@ export function Layout({ children }: PropsWithChildren) {
               <View.Port />
               <Preload all />
             </Canvas>
+            {children}
           </Lenis>
         </Tweakpane>
       </JotaiProvider>
