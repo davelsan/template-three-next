@@ -15,7 +15,7 @@
     "build": "next build",
     "analyze": "ANALYZE=true next build",
     "start": "next start",
-    "format": "prettier --check --write --no-error-on-unmatched-pattern ./**/*.{ts,tsx,md} ./**/*.{ts,tsx,md}",
+    "format": "prettier --check --write --no-error-on-unmatched-pattern ./**/*",
     "gltfjsx": "gltfjsx -t"
   },
   "dependencies": {

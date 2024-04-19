@@ -3,15 +3,12 @@
     "next",
     "prettier",
     "plugin:tailwindcss/recommended",
-    "plugin:prettier/recommended"
   ],
   "plugins": ["simple-import-sort"],
   "rules": {
     "no-console": "warn",
     "no-var": "error",
     "no-html-link-for-pages": "off",
-    // Formatting
-    "prettier/prettier": "warn",
     // Sort imports
     "import": "off",
     "export": "off",
