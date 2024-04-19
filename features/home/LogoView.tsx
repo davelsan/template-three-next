@@ -17,7 +17,7 @@ export function LogoView() {
       </div>
 
       <div className="w-full text-center">
-        <View className="flex h-96 w-full flex-col items-center justify-center">
+        <View className="relative flex h-96 w-full flex-col items-center justify-center">
           <Logo route="/blob" scale={0.5} position={[0, 0, 0]} />
           <Common />
           <Camera makeDefault fov={40} position={[0, 0, 6]} />

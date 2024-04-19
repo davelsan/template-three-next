@@ -4,8 +4,6 @@ import { PropsWithChildren, useEffect, useLayoutEffect } from 'react';
 import { Pane } from 'tweakpane';
 import { BindingApi, ButtonApi } from '@tweakpane/core';
 
-import { StateBundle } from '@debug/StateBundle';
-
 const paneAtom = atom<Pane | undefined>(undefined);
 
 export const tweakpanePathsAtom = atom<
@@ -39,7 +37,6 @@ export function Tweakpane({ children }: PropsWithChildren) {
    */
   useLayoutEffect(() => {
     const pane = new Pane({ title: 'Debug' });
-    pane.registerPlugin(StateBundle);
     setPane(pane);
     return () => pane.dispose();
   }, [setPane]);
