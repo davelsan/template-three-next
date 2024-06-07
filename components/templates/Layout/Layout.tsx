@@ -16,7 +16,7 @@ export function Layout({ children }: PropsWithChildren) {
   return (
     <div ref={divRef}>
       <JotaiProvider>
-        <Tweakpane>
+        <Tweakpane title="Debug">
           <Lenis
             root
             options={{
