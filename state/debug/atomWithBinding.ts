@@ -44,9 +44,16 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
   return <T>(label: string, value: T, options?: AtomWithTweakOptions) => {
     const prevAtom = atom(value);
     const currAtom = atom(value);
-    const bindingAtom = atom((get) => get(currAtom));
+    const bindingAtom = atom(
+      (get) => get(currAtom),
+      (get, set, currVal: T) => {
+        const prevVal = get(currAtom);
+        set(prevAtom, prevVal);
+        set(currAtom, currVal);
+      }
+    );
 
-    currAtom.onMount = () => {
+    bindingAtom.onMount = () => {
       const { get, set, sub } = jotaiStore;
       const { listen, ...params } = options ?? {};
 
@@ -55,8 +62,8 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
       const pane = folderAtom ? get(folderAtom) : get(tweakpaneAtom);
 
       // Create the tweakpane binding.
-      const key = currAtom.toString();
-      const currentValue = get(currAtom);
+      const key = bindingAtom.toString();
+      const currentValue = get(bindingAtom);
       const obj = { [key]: currentValue };
       const binding = pane.addBinding(obj, key, {
         label,
@@ -65,15 +72,13 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
 
       // Update the atoms with the 'change' event.
       binding.on('change', ({ value }) => {
-        const prevVal = get(currAtom);
-        set(prevAtom, prevVal);
-        set(currAtom, value);
+        set(bindingAtom, value);
       });
 
       // Support non-reactively updating the tweakpane UI blade.
       let unsubListener: (() => void) | undefined;
       if (listen) {
-        unsubListener = sub(currAtom, () => {
+        unsubListener = sub(bindingAtom, () => {
           listen && binding.refresh();
         });
       }
@@ -123,7 +128,7 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
         const { get, set, sub } = jotaiStore;
 
         // Subscribing to the atom will trigger the `onMount` effect.
-        return sub(currAtom, () => {
+        return sub(bindingAtom, () => {
           callback({
             get,
             set,
