@@ -108,7 +108,15 @@ export type ShaderMaterialComponent<MaterialType> = Node<
  *   }
  * }
  * // In the consuming component...
- * const materialRef = useRef<CustomMaterialRef>();
+ * const materialRef = useRef<CustomMaterialRef>(null);
+ *
+ * useFrame((_, delta) => {
+ *  if (!materialRef.current) return;
+ *  materialRef.current.uTime += delta;
+ *  // or
+ *  materialRef.current.uniforms.uTime.value += delta;
+ * }, [materialRef]);
+ *
  * <customMaterial
  *   ref={materialRef}
  *   attach="material"
@@ -118,10 +126,10 @@ export type ShaderMaterialComponent<MaterialType> = Node<
  *
  * @example imperative use of the CustomMaterial class
  * const material = useMemo(() => new CustomMaterial(), []);
- * useFrame(({ clock }) => {
- *   material.uTime = clock.getElapsedTime();
+ * useFrame((_, delta) => {
+ *   material.uTime += delta;
  *   // or
- *   material.uniforms.uTime.value = clock.getElapsedTime();
+ *   material.uniforms.uTime.value += delta;
  * });
  *
  * @param uniformProps uniform properties

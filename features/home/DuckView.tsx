@@ -1,9 +1,9 @@
-import { Duck } from '@features/home/Duck';
-import { Heading2 } from '@shadcn/typography/Heading2';
-import { Paragraph } from '@shadcn/typography/Paragraph';
-import { Camera } from '@templates/Camera';
-import { Common } from '@templates/Common';
-import { View } from '@templates/View';
+import { Heading2, Paragraph } from '@shadcn/typography';
+import { Camera } from '@webgl/Camera';
+import { Common } from '@webgl/Common';
+import { View } from '@webgl/View';
+
+import { Duck } from './Duck';
 
 export function DuckView() {
   return (

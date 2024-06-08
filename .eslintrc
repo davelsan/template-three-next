@@ -2,7 +2,7 @@
   "extends": [
     "next",
     "prettier",
-    "plugin:tailwindcss/recommended",
+    "plugin:tailwindcss/recommended"
   ],
   "plugins": ["simple-import-sort"],
   "rules": {
@@ -30,8 +30,10 @@
             "^@shadcn",
             "^@shaders",
             "^@state",
+            "^@styles",
             "^@templates",
-            "^@utils"
+            "^@utils",
+            "^@webgl"
           ],
           // Folder imports (starting with `../` or `./`)
           [

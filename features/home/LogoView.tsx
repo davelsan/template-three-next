@@ -1,9 +1,9 @@
-import { Logo } from '@features/home/Logo';
-import { Heading1 } from '@shadcn/typography/Heading1';
-import { TextLarge } from '@shadcn/typography/TextLarge';
-import { Camera } from '@templates/Camera';
-import { Common } from '@templates/Common';
-import { View } from '@templates/View';
+import { Heading1, TextLarge } from '@shadcn/typography';
+import { Camera } from '@webgl/Camera';
+import { Common } from '@webgl/Common';
+import { View } from '@webgl/View';
+
+import { Logo } from './Logo';
 
 export function LogoView() {
   return (

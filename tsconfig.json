@@ -12,8 +12,10 @@
       "@shadcn/*": ["./components/shadcn/*"],
       "@shaders/*": ["./components/shaders/*"],
       "@state/*": ["./state/*"],
+      "@styles/*": ["./styles/*"],
       "@templates/*": ["./components/templates/*"],
       "@utils/*": ["./utils/*"],
+      "@webgl/*": ["./components/webgl/*"],
     },
     "target": "es5",
     "lib": [

@@ -5,7 +5,7 @@ import { MeshDistortMaterial, useCursor } from '@react-three/drei';
 import { MeshProps } from '@react-three/fiber';
 
 import { atomWithBinding } from '@state/debug';
-import { InferRef } from '@utils/type-helpers/InferRef';
+import { InferRef } from '@utils/type-helpers';
 
 export const [blobColorAtom, useColorListener] = atomWithBinding(
   'blobColor',

@@ -24,15 +24,10 @@ type GLTFResult = GLTF & {
   };
 };
 
-type ContextType = Record<
-  string,
-  React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>
->;
-
 type DogProps = JSX.IntrinsicElements['group'] & {};
 
 export function Dog(props: DogProps) {
-  const { nodes, materials } = useGLTF('/dog.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF('/models/dog.glb') as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <mesh

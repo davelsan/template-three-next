@@ -7,7 +7,7 @@ import { Canvas } from '@react-three/fiber';
 
 import { useImmutableRef } from '@hooks/useImmutableRef';
 import { Tweakpane } from '@state/debug';
-import { JotaiProvider } from '@state/jotai/JotaiProvider';
+import { JotaiProvider } from '@state/jotai';
 
 import { Lenis } from '../Lenis';
 

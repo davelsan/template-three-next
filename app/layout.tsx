@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { Layout } from '@templates/Layout';
 
-import './global.css';
+import '@styles/global.css';
 
 type RootLayoutProps = {
   children: ReactNode;

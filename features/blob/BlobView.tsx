@@ -1,8 +1,8 @@
 'use client';
 
-import { Camera } from '@templates/Camera';
-import { Common } from '@templates/Common';
-import { View } from '@templates/View';
+import { Camera } from '@webgl/Camera';
+import { Common } from '@webgl/Common';
+import { View } from '@webgl/View';
 
 import { Blob } from './Blob';
 

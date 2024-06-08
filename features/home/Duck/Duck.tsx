@@ -24,13 +24,8 @@ type GLTFResult = GLTF & {
   };
 };
 
-type ContextType = Record<
-  string,
-  React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>
->;
-
 export function Duck(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/duck.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF('/models/duck.glb') as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <mesh
