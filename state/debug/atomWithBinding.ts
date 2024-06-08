@@ -63,8 +63,7 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
 
       // Create the tweakpane binding.
       const key = bindingAtom.toString();
-      const currentValue = get(bindingAtom);
-      const obj = { [key]: currentValue };
+      const obj = { [key]: get(currAtom) };
       const binding = pane.addBinding(obj, key, {
         label,
         ...params,
@@ -78,8 +77,8 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
       // Support non-reactively updating the tweakpane UI blade.
       let unsubListener: (() => void) | undefined;
       if (listen) {
-        unsubListener = sub(bindingAtom, () => {
-          listen && binding.refresh();
+        unsubListener = sub(currAtom, () => {
+          binding.refresh();
         });
       }
 
