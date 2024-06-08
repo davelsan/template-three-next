@@ -3,7 +3,8 @@ import { atomFamily } from 'jotai/utils';
 import { useEffect } from 'react';
 import { BindingParams, FolderApi, FolderParams } from '@tweakpane/core';
 
-import { jotaiStore } from '../jotai/JotaiProvider';
+import { jotaiStore } from '@state/jotai';
+
 import { tweakpaneAtom, tweakpanePathsAtom } from './Tweakpane';
 
 type AtomWithTweakOptions = BindingParams & {
@@ -43,49 +44,48 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
   return <T>(label: string, value: T, options?: AtomWithTweakOptions) => {
     const prevAtom = atom(value);
     const currAtom = atom(value);
+    const bindingAtom = atom((get) => get(currAtom));
 
-    const bindingAtom = atom(
-      (get) => get(currAtom),
-      (get, set, arg: T) => {
-        const prevVal = get(currAtom);
-        set(prevAtom, prevVal);
-        set(currAtom, arg);
-      }
-    );
-
-    bindingAtom.onMount = () => {
+    currAtom.onMount = () => {
       const { get, set, sub } = jotaiStore;
-
       const { listen, ...params } = options ?? {};
 
-      const folder = folderParams && tweakpaneFolderFamily(folderParams);
-      const pane = folder ? get(folder) : get(tweakpaneAtom);
+      // Determine where to add the binding in the tweakpane UI.
+      const folderAtom = folderParams && tweakpaneFolderFamily(folderParams);
+      const pane = folderAtom ? get(folderAtom) : get(tweakpaneAtom);
 
-      const key = bindingAtom.toString();
-      const obj = { [key]: value };
+      // Create the tweakpane binding.
+      const key = currAtom.toString();
+      const currentValue = get(currAtom);
+      const obj = { [key]: currentValue };
       const binding = pane.addBinding(obj, key, {
         label,
         ...params,
       });
+
+      // Update the atoms with the 'change' event.
       binding.on('change', ({ value }) => {
-        set(bindingAtom, value);
+        const prevVal = get(currAtom);
+        set(prevAtom, prevVal);
+        set(currAtom, value);
       });
 
-      // Create non-reactive updates in the tweakpane UI or elsewhere
+      // Support non-reactively updating the tweakpane UI blade.
       let unsubListener: (() => void) | undefined;
       if (listen) {
-        unsubListener = sub(bindingAtom, () => {
+        unsubListener = sub(currAtom, () => {
           listen && binding.refresh();
         });
       }
 
-      // Set the `paths` config
+      // Configure the `paths` in which the tweak is visible. Default is all.
       const paths = options?.paths ?? [];
       set(tweakpanePathsAtom, (prev) => {
         const newValue = [binding, paths] as const;
         return [...prev, newValue];
       });
 
+      // Cleanup the atoms, unsubscribe from listeners, and remove the pane on unmount.
       return () => {
         set(tweakpanePathsAtom, (prev) =>
           prev.filter(([b]) => !Object.is(b, binding))
@@ -123,7 +123,7 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
         const { get, set, sub } = jotaiStore;
 
         // Subscribing to the atom will trigger the `onMount` effect.
-        return sub(bindingAtom, () => {
+        return sub(currAtom, () => {
           callback({
             get,
             set,
