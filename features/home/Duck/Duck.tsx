@@ -24,8 +24,10 @@ type GLTFResult = GLTF & {
   };
 };
 
+const duckUrl = '/models/duck.glb';
+
 export function Duck(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/models/duck.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF(duckUrl) as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -62,4 +64,4 @@ export function Duck(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/duck.glb');
+useGLTF.preload(duckUrl);

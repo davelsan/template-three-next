@@ -26,8 +26,10 @@ type GLTFResult = GLTF & {
 
 type DogProps = JSX.IntrinsicElements['group'] & {};
 
+const dogUrl = '/models/dog.glb';
+
 export function Dog(props: DogProps) {
-  const { nodes, materials } = useGLTF('/models/dog.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF(dogUrl) as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -64,4 +66,4 @@ export function Dog(props: DogProps) {
   );
 }
 
-useGLTF.preload('/dog.glb');
+useGLTF.preload(dogUrl);
