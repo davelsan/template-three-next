@@ -1,9 +1,9 @@
-import { atom, Getter, Setter } from 'jotai';
+'use client';
+
+import { atom, getDefaultStore, Getter, Setter } from 'jotai';
 import { atomFamily } from 'jotai/utils';
 import { useEffect } from 'react';
 import { BindingParams, FolderApi, FolderParams } from '@tweakpane/core';
-
-import { jotaiStore } from '@state/jotai';
 
 import { tweakpaneAtom, tweakpanePathsAtom } from './Tweakpane';
 
@@ -42,6 +42,8 @@ const tweakpaneFolderFamily = atomFamily(
  */
 export function atomWithBindingFolder(folderParams?: FolderParams) {
   return <T>(label: string, value: T, options?: AtomWithTweakOptions) => {
+    const jotaiStore = getDefaultStore();
+
     const prevAtom = atom(value);
     const currAtom = atom(value);
     const bindingAtom = atom(

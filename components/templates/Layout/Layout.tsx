@@ -5,8 +5,6 @@ import { Preload, View } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
 import { useImmutableRef } from '@hooks/useImmutableRef';
-import { Tweakpane } from '@state/debug';
-import { JotaiProvider } from '@state/jotai';
 
 import { Lenis } from '../Lenis';
 
@@ -14,34 +12,30 @@ export function Layout({ children }: PropsWithChildren) {
   const divRef = useImmutableRef<HTMLDivElement>();
   return (
     <div ref={divRef}>
-      <JotaiProvider>
-        <Tweakpane title="Debug">
-          <Lenis
-            root
-            options={{
-              smoothWheel: true,
-              syncTouch: true,
-            }}
-          >
-            <Canvas
-              style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100vw',
-                height: '100vh',
-                pointerEvents: 'none',
-              }}
-              eventSource={divRef}
-              eventPrefix="client"
-            >
-              <View.Port />
-              <Preload all />
-            </Canvas>
-            {children}
-          </Lenis>
-        </Tweakpane>
-      </JotaiProvider>
+      <Lenis
+        root
+        options={{
+          smoothWheel: true,
+          syncTouch: true,
+        }}
+      >
+        <Canvas
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            pointerEvents: 'none',
+          }}
+          eventSource={divRef}
+          eventPrefix="client"
+        >
+          <View.Port />
+          <Preload all />
+        </Canvas>
+        {children}
+      </Lenis>
     </div>
   );
 }

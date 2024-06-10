@@ -1,3 +1,5 @@
+'use client';
+
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { usePathname } from 'next/navigation';
 import { PropsWithChildren, useEffect, useLayoutEffect } from 'react';

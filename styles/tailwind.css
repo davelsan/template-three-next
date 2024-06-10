@@ -75,21 +75,3 @@
   }
 }
 
-/**
- * Main Tweakpane window.
- */
-.tp-rotv {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-}
-
-/**
- * Tweakpane input binding value (excluding buttons).
- */
-.tp-lblv_v:not(:has(.tp-btnv_t)) {
-  width: 62.7% !important; /* 270px */
-}
