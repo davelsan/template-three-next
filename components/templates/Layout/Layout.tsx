@@ -1,6 +1,5 @@
 'use client';
 
-import { Perf } from 'r3f-perf';
 import { PropsWithChildren } from 'react';
 import { Preload, View } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
@@ -36,7 +35,6 @@ export function Layout({ children }: PropsWithChildren) {
               eventSource={divRef}
               eventPrefix="client"
             >
-              <Perf position="bottom-right" />
               <View.Port />
               <Preload all />
             </Canvas>
