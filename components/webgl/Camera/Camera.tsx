@@ -48,7 +48,7 @@ export const Camera = forwardRef<CameraApi, CameraProps>(function CameraRef(
         enableZoom={enableZoom}
         enableDamping={enableDamping}
       />
-      <PerspectiveCamera ref={cameraRef} makeDefault {...props} />
+      <PerspectiveCamera ref={cameraRef} {...props} />
     </>
   );
 });
