@@ -1,4 +1,4 @@
-import { Heading1, TextLarge } from '@shadcn/typography';
+import { Heading1, Paragraph } from '@shadcn/typography';
 import { Camera } from '@webgl/Camera';
 import { Common } from '@webgl/Common';
 import { View } from '@webgl/View';
@@ -9,11 +9,13 @@ export function LogoView() {
   return (
     <div className="flex w-full gap-10 sm:flex-col-reverse md:flex-row">
       <div className="flex w-full flex-col">
-        <p className="w-full uppercase">Next + React Three Fiber</p>
+        <Paragraph className="w-full uppercase">
+          Next + React Three Fiber
+        </Paragraph>
         <Heading1>Next 3D Starter</Heading1>
-        <TextLarge>
+        <Paragraph size="large">
           A minimalist starter for React, React-three-fiber and Threejs.
-        </TextLarge>
+        </Paragraph>
       </div>
 
       <div className="w-full text-center">

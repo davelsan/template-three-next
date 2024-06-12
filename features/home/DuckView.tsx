@@ -23,7 +23,7 @@ export function DuckView() {
       </div>
       <div className="w-full p-6 sm:w-1/2">
         <Heading2>Dom and 3D are synchronized</Heading2>
-        <Paragraph className="text-gray-600">
+        <Paragraph className="text-gray-600" size="large">
           3D Divs are rendered through the View component. It uses gl.scissor to
           cut the viewport into segments. You tie a view to a tracking div which
           then controls the position and bounds of the viewport. This allows you

@@ -11,7 +11,7 @@ export function DogView() {
     <div className="flex w-full items-center gap-10">
       <div className="relative h-48 w-full py-6 sm:w-1/2 md:my-12 md:mb-40">
         <Heading2>Events are propagated</Heading2>
-        <Paragraph className="text-gray-600">
+        <Paragraph className="text-gray-600" size="large">
           Drag, scroll, pinch, and rotate the canvas to explore the 3D scene.
         </Paragraph>
       </div>
