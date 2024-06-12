@@ -1,14 +1,4 @@
-import {
-  ComponentProps,
-  createContext,
-  forwardRef,
-  PropsWithChildren,
-  RefObject,
-  useContext,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import { ComponentProps, forwardRef, useImperativeHandle, useRef } from 'react';
 import type { PerspectiveCamera as ThreePerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
 import type { OrbitControls as ThreeOrbitControls } from 'three-stdlib/controls/OrbitControls';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
@@ -52,29 +42,3 @@ export const Camera = forwardRef<CameraApi, CameraProps>(function CameraRef(
     </>
   );
 });
-
-const CameraContext = createContext<CameraApi | undefined>(undefined);
-
-export function CameraProvider({
-  api,
-  children,
-}: PropsWithChildren<{ api: RefObject<CameraApi> }>) {
-  const [cameraApi] = useState<CameraApi>({
-    get camera() {
-      return api.current?.camera ?? null;
-    },
-    get controls() {
-      return api.current?.controls ?? null;
-    },
-  });
-
-  return (
-    <CameraContext.Provider value={cameraApi}>
-      {children}
-    </CameraContext.Provider>
-  );
-}
-
-export function useCamera() {
-  return useContext(CameraContext);
-}
