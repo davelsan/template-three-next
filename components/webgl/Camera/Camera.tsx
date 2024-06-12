@@ -34,7 +34,7 @@ export const Camera = forwardRef<CameraApi, CameraProps>(function CameraRef(
     <>
       <OrbitControls
         ref={controlsRef}
-        enabled={!!controls}
+        enabled={Boolean(controls)}
         enableZoom={enableZoom}
         enableDamping={enableDamping}
       />
