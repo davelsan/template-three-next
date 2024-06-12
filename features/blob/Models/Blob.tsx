@@ -7,7 +7,7 @@ import { MeshProps } from '@react-three/fiber';
 import { atomWithBinding } from '@state/debug';
 import { InferRef } from '@utils/type-helpers';
 
-export const [blobColorAtom, useColorListener] = atomWithBinding(
+export const [blobColorAtom, useBlobColor] = atomWithBinding(
   'blobColor',
   '#1fb2f5',
   {
@@ -19,7 +19,7 @@ interface BlobProps extends MeshProps {
   route?: string;
 }
 
-export const Blob = ({ route = '/', ...props }: BlobProps) => {
+export function Blob({ route = '/', ...props }: BlobProps) {
   const router = useRouter();
   const materialRef = useRef<InferRef<typeof MeshDistortMaterial>>(null);
   const [hovered, hover] = useState(false);
@@ -42,4 +42,4 @@ export const Blob = ({ route = '/', ...props }: BlobProps) => {
       />
     </mesh>
   );
-};
+}

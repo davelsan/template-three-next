@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic, { DynamicOptionsLoadingProps } from 'next/dynamic';
 import { createContext, useContext } from 'react';
 import { ViewProps } from '@react-three/drei';

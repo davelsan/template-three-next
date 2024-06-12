@@ -1,18 +1,27 @@
-/**
- * Main Tweakpane window.
- */
-.tp-rotv {
+.tp-container {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  z-index: 9999;
+  padding: 0.625rem;
+  width: 100%;
+  z-index: 100;
+}
+
+@media (min-width: 640px) {
+  .tp-container {
+    right: 0;
+    padding: 1.25rem;
+    width: 400px;
+  }
+}
+
+@media (min-width: 1980px) {
+  .tp-container {
+    right: 25%;
+  }
 }
 
 /**
- * Tweakpane input binding value (excluding buttons).
+ * Increase the tweakpane input binding value (excluding buttons), taking the
+ * extra space from its label, to better manipulate the input controls.
  */
 .tp-lblv_v:not(:has(.tp-btnv_t)) {
   width: 62.7% !important; /* 270px */

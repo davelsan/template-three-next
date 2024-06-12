@@ -2,7 +2,7 @@
 
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { usePathname } from 'next/navigation';
-import { PropsWithChildren, useEffect, useLayoutEffect } from 'react';
+import { PropsWithChildren, useEffect, useLayoutEffect, useRef } from 'react';
 import { Pane } from 'tweakpane';
 import { PaneConfig } from 'tweakpane/dist/types/pane/pane-config';
 import { BindingApi, ButtonApi } from '@tweakpane/core';
@@ -33,6 +33,7 @@ export function Tweakpane({
   const [pane, setPane] = useAtom(tweakpaneAtom);
   const bindingPaths = useAtomValue(tweakpanePathsAtom);
   const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   /**
    * To initialize the tweakpane instance, it seems we need to wait for Next.js
@@ -40,7 +41,11 @@ export function Tweakpane({
    * app first mounts.
    */
   useLayoutEffect(() => {
-    const pane = new Pane(options);
+    if (!containerRef.current) return;
+    const pane = new Pane({
+      container: containerRef.current,
+      ...options,
+    });
     setPane(pane);
     return () => pane.dispose();
     // Purposefully make options non-reactive.
@@ -60,5 +65,10 @@ export function Tweakpane({
     pane.hidden = pane.children.length === 0;
   }, [bindingPaths, pane, pathname]);
 
-  return pane ? children : null;
+  return (
+    <>
+      <div ref={containerRef} className="tp-container"></div>
+      {children}
+    </>
+  );
 }

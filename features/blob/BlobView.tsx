@@ -1,32 +1,24 @@
-'use client';
-
-import { Camera } from '@webgl/Camera';
-import { Common } from '@webgl/Common';
+import { Blob3D } from '@features/blob/Blob3D';
+import { Heading1, Paragraph } from '@shadcn/typography';
 import { View } from '@webgl/View';
-
-import { Blob } from './Blob';
 
 export function BlobView() {
   return (
-    <>
-      <div className="mx-auto flex w-full flex-col flex-wrap items-center md:flex-row  lg:w-4/5">
-        <div className="flex w-full flex-col items-start justify-center p-12 text-center md:w-2/5 md:text-left">
-          <p className="w-full uppercase">Next + React Three Fiber</p>
-          <h1 className="my-4 text-5xl font-bold leading-tight">
-            Next 3D Starter
-          </h1>
-          <p className="mb-8 text-2xl leading-normal">
-            The color tweak persists across routes and is reused by the Home
-            page logo.
-          </p>
-        </div>
+    <div className="relative max-w-screen-2xl p-10 2xl:mx-auto">
+      <div className="flex w-full flex-col flex-wrap lg:absolute lg:w-1/2">
+        <Paragraph className="w-full uppercase">
+          Next + React Three Fiber
+        </Paragraph>
+        <Heading1>Next 3D Starter</Heading1>
+        <Paragraph size="large">
+          The color tweak persists across routes and is reused by the Home page
+          logo.
+        </Paragraph>
       </div>
 
-      <View className="absolute top-0 flex h-screen w-full flex-col items-center justify-center">
-        <Blob />
-        <Common />
-        <Camera makeDefault fov={40} position={[0, 0, 6]} controls />
+      <View className="h-[calc(300px+(800-374)*((100vw-375px)/(1600-375)))] lg:h-screen">
+        <Blob3D />
       </View>
-    </>
+    </div>
   );
 }
