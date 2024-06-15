@@ -80,6 +80,7 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
       let unsubListener: (() => void) | undefined;
       if (listen) {
         unsubListener = sub(currAtom, () => {
+          obj[key] = get(currAtom);
           binding.refresh();
         });
       }
