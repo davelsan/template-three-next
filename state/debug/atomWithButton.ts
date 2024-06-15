@@ -1,8 +1,10 @@
 'use client';
 
-import { atom, getDefaultStore, Getter, Setter } from 'jotai';
+import { atom, Getter, Setter } from 'jotai';
 import { useEffect } from 'react';
 import { ButtonApi, ButtonParams, TpMouseEvent } from '@tweakpane/core';
+
+import { jotaiStore } from '@state/jotai';
 
 import { tweakpaneAtom, tweakpanePathsAtom } from './Tweakpane';
 
@@ -54,7 +56,6 @@ export function atomWithButton(
   params: ButtonParams,
   options?: AtomWithButtonOptions
 ) {
-  const jotaiStore = getDefaultStore();
   const valueAtom = atom(false);
 
   valueAtom.onMount = () => {
