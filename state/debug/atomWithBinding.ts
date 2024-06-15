@@ -21,13 +21,29 @@ type AtomWithTweakOptions = BindingParams & {
   paths?: string[];
 };
 
-type ListenerArgs<Value> = {
+type SubscriberArgs<Value> = {
+  /**
+   * Getter function to retrieve _any_ atom value in the store.
+   */
   get: Getter;
+  /**
+   * Setter function to update _any_ atom value in the store.
+   */
   set: Setter;
+  /**
+   * Current atom value.
+   */
   value: Value;
+  /**
+   * Previous atom value.
+   */
   prevValue: Value;
 };
 
+/**
+ * Internal atom to keep track of the tweakpane folders created by the
+ * `atomWithBindingFolder` factory.
+ */
 const tweakpaneFolderFamily = atomFamily(
   (folderParams: FolderParams) =>
     atom<FolderApi>((get) => {
@@ -39,7 +55,16 @@ const tweakpaneFolderFamily = atomFamily(
 
 /**
  * Atom factory to create atoms attached to a tweakpane binding. If no folder
- * params are provided, the atom will be attached to the tweakpane root blade.
+ * params are provided, the bindings will be attached to the tweakpane root blade.
+ *
+ * @example create a binding within a folder.
+ * const materialBinding = atomWithBindingFolder({ title: 'Material' });
+ *
+ * const [colorAtom, useColorAtom] = materialBinding('color', * new Color('#ffffff'), {
+ *   listen: true,
+ *   params: { color: { type: 'float' } },
+ * });
+ *
  * @param folderParams tweakpane folder params
  */
 export function atomWithBindingFolder(folderParams?: FolderParams) {
@@ -112,17 +137,9 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
      * Perform a side effect using a stable callback function. This hook is meant
      * to be used instead of `useAtom` or `useAtomValue`. Returns the current atom
      * value at render time, but updating the tweak will not cause a re-render.
-     *
-     * @example update a material color without re-rendering
-     * const color = useColorListener(
-     *   useCallback(({ value, prevValue }) => {
-     *     material.uniforms.uColor.value.set(value);
-     *   }, [])
-     * );
-     *
      * @param callback stable callback function to execute on atom changes
      */
-    function useListener(callback: (args: ListenerArgs<T>) => void) {
+    function useSubscriber(callback: (args: SubscriberArgs<T>) => void) {
       // Retrieve the latest atom value
       const value = jotaiStore.get(currAtom);
 
@@ -143,19 +160,34 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
       return value;
     }
 
-    return [bindingAtom, useListener] as const;
+    return [bindingAtom, useSubscriber] as const;
   };
 }
 
 /**
- * Create an atom with tweakpane binding args. Equivalent to calling
- * `atomWithBindingFolder()` with no folder params.
+ * Create an atom and associated tweakpane binding to control its value.
+ * Returns a tuple with the atom and a subscriber hook to perform side
+ * effects.
+ * - The atom can be used with idiomatic Jotai hooks like `useAtomValue`
+ *   and `useSetAtom` to read and update the atom value, respectively.
+ * - The subscriber hook is designed to perform side effects using a stable
+ *   callback.
  *
- * @example reactive tweak
- * const color = atomWithBinding(1, {
+ * @example initialize the binding outside the React component tree.
+ * const [colorAtom, useColorAtom] = atomWithBinding(new Color('#ffffff'), {
  *   listen: true,
- *   params: { min: 0, max: 10 },
+ *   params: { color: { type: 'float' } },
  * });
+ *
+ * @example use the atom within a component.
+ * const color = useAtomValue(colorAtom);
+ *
+ * @example or use the subscriber without causing a re-render.
+ * const color = useColorAtom(
+ *   useCallback(({ value }) => {
+ *     material.uniforms.uColor.value.set(value);
+ *   }, [])
+ * );
  *
  * @param value initial value
  * @param key tweakpane key
