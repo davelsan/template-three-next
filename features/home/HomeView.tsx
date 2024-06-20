@@ -34,10 +34,12 @@ export function HomeView() {
           </Paragraph>
           <Paragraph>
             The blob color tweak will not cause this page to re-render, and so
-            this inline value will not change. Click on the blob to navigate to
-            the next page and try a reactive tweak, or navigate back to see the
-            updated value. The color is:{' '}
+            this inline value will not change:{' '}
             <span className="font-mono">{color.current}</span>
+          </Paragraph>
+          <Paragraph>
+            Click on the blob to navigate to the next page and try a reactive
+            tweak, or navigate back to see the updated value.
           </Paragraph>
         </div>
       </div>
