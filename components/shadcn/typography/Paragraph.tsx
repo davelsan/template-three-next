@@ -8,7 +8,7 @@ const paragraphCss = cva(['[&:not(:first-child)]:mt-6'], {
     size: {
       small: 'text-sm leading-3',
       medium: 'text-base leading-7',
-      large: 'mb-8 text-2xl leading-normal',
+      large: 'text-2xl leading-normal',
     },
   },
   defaultVariants: {
