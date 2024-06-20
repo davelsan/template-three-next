@@ -2,9 +2,7 @@
 
 ## Description
 
-I wanted to have a starter template to develop more complex experiences while taking advantage of the amazing ecosystem built around [Next.js](https://nextjs.org) and [React-Three Fiber](https://github.com/pmndrs/react-three-fiber). Fortunately, the folks maintaining the excellent [react-three-next](https://github.com/pmndrs/react-three-next) starter gave me everything I needed to create my custom version of it.
-
-In this adaptation, I've added missing TypeScript types in various components and hooks, included `3.x` features such as [Lenis](https://github.com/darkroomengineering/lenis/tree/main) support, extracted dynamic imports to barrel files for a more declarative syntax, and reorganized the codebase around feature folders.
+A starter template to develop more Three.js experiences taking advantage of the amazing ecosystem built around [Next.js](https://nextjs.org) and [React-Three Fiber](https://github.com/pmndrs/react-three-fiber). This repo is derived from the excellent [react-three-next](https://github.com/pmndrs/react-three-next) starter, with some customizations:
 
 ### Features
 
@@ -14,6 +12,15 @@ In this adaptation, I've added missing TypeScript types in various components an
 - [TailwindCSS](https://tailwindcss.com) and [Class Variance Authority](https://cva.style/docs) primed to leverage [shadcn/ui](https://ui.shadcn.com).
 - Codebase organized around [features](./features) and [components](./components).
 - [TypeScript](https://www.typescriptlang.org) for type safety and intellisense, with matching [ESLint](https://eslint.org) and [Prettier](https://prettier.io) configurations.
+
+
+### Other Changes
+
+- Ejected the [ShaderMaterial](./components/webgl/ShaderMaterial/shaderMaterial.ts) from upstream `drei` to better adapt it to a TypeScript codebase.
+- Cherry-picked some `3.x` features, such as [Lenis](https://github.com/darkroomengineering/lenis/tree/main) support.
+- Extracted dynamic imports to barrel files for a more declarative syntax.
+- Added various components, helpers, hooks, and utils.
+- Added missing TypeScript types and reorganized the codebase.
 
 ## Tweakpane + Jotai
 
