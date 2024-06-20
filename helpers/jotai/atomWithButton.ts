@@ -1,10 +1,10 @@
 'use client';
 
 import { atom, Getter, Setter } from 'jotai';
-import { useEffect } from 'react';
 import { ButtonApi, ButtonParams, TpMouseEvent } from '@tweakpane/core';
 
-import { tweakpaneAtom, tweakpanePathsAtom } from '@state/debug/atoms';
+import { createJotaiSubscriber } from '@helpers/jotai';
+import { tweakpaneAtom, tweakpanePathsAtom } from '@state/debug';
 import { jotaiStore } from '@state/jotai';
 
 type AtomWithButtonOptions = {
@@ -27,12 +27,6 @@ type Callback = (
   get: Getter,
   set: Setter
 ) => void;
-
-/**
- * Non-reactive button callback listener. It will not trigger a re-render
- * unless the `set` function is used and the atom value is being listened.
- */
-type CallbackListener = (get: Getter, set: Setter) => void;
 
 /**
  * Create an atom with tweakpane button params.
@@ -87,20 +81,5 @@ export function atomWithButton(
     };
   };
 
-  /**
-   * Perform a side effect using a stable callback function. It will show
-   * the tweakpane button, but by it will not cause a re-render by itself
-   * unless the `set` function is used.
-   * @param callback on-click callback function
-   */
-  function useListener(callback: CallbackListener) {
-    useEffect(() => {
-      const { get, set, sub } = jotaiStore;
-      return sub(valueAtom, () => {
-        callback(get, set);
-      });
-    }, [callback]);
-  }
-
-  return [valueAtom, useListener] as const;
+  return [valueAtom, createJotaiSubscriber(valueAtom)] as const;
 }
