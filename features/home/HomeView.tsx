@@ -1,12 +1,22 @@
 'use client';
 
-import { Dog3D } from '@features/home/Dog3D';
-import { Duck3D } from '@features/home/Duck3D';
-import { Logo3D } from '@features/home/Logo3D';
+import { useCallback } from 'react';
+
 import { Heading1, Heading2, Paragraph } from '@shadcn/typography';
 import { View } from '@webgl/View';
 
+import { blobColorAtom, useBlobColor } from '../blob/Models';
+import { Dog3D } from './Dog3D';
+import { Duck3D } from './Duck3D';
+import { Logo3D } from './Logo3D';
+
 export function HomeView() {
+  const color = useBlobColor(
+    useCallback(({ set, value }) => {
+      set(blobColorAtom, value);
+    }, [])
+  );
+
   return (
     <div className="flex w-full flex-col p-10 lg:gap-20 lg:py-20 xl:px-40 2xl:mx-auto 2xl:max-w-screen-2xl">
       <div className="flex w-full flex-col gap-10 lg:flex-row-reverse">
@@ -20,7 +30,14 @@ export function HomeView() {
           </Paragraph>
           <Heading1>Next 3D Starter</Heading1>
           <Paragraph size="large">
-            A minimalist starter for React, React-three-fiber and Threejs.
+            A minimalist starter for React, React-three-fiber and Three.js.
+          </Paragraph>
+          <Paragraph>
+            The blob color tweak will not cause this page to re-render, and so
+            this inline value will not change. Click on the blob to navigate to
+            the next page and try a reactive tweak, or navigate back to see the
+            updated value. The color is:{' '}
+            <span className="font-mono">{color.current}</span>
           </Paragraph>
         </div>
       </div>

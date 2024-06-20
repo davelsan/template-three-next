@@ -9,10 +9,7 @@ import { InferRef } from '@utils/type-helpers';
 
 export const [blobColorAtom, useBlobColor] = atomWithBinding(
   'blobColor',
-  '#1fb2f5',
-  {
-    paths: ['/blob'],
-  }
+  '#1fb2f5'
 );
 
 interface BlobProps extends MeshProps {
