@@ -4,9 +4,8 @@ import { atom, Getter, Setter } from 'jotai';
 import { useEffect } from 'react';
 import { ButtonApi, ButtonParams, TpMouseEvent } from '@tweakpane/core';
 
+import { tweakpaneAtom, tweakpanePathsAtom } from '@state/debug/atoms';
 import { jotaiStore } from '@state/jotai';
-
-import { tweakpaneAtom, tweakpanePathsAtom } from './Tweakpane';
 
 type AtomWithButtonOptions = {
   /**

@@ -1,7 +1,7 @@
 import { useAtomValue } from 'jotai/index';
 import { Perf } from 'r3f-perf';
 
-import { atomWithBinding } from '@state/debug';
+import { atomWithBinding } from '@helpers/jotai';
 
 const [performanceAtom] = atomWithBinding('Performance', true, {
   index: 0,

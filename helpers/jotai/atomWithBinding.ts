@@ -1,13 +1,12 @@
 'use client';
 
-import { atom, Getter, Setter } from 'jotai';
+import { atom } from 'jotai';
 import { atomFamily } from 'jotai/utils';
-import { useEffect } from 'react';
 import { BindingParams, FolderApi, FolderParams } from '@tweakpane/core';
 
+import { createJotaiSubscriber } from '@helpers/jotai/index';
+import { tweakpaneAtom, tweakpanePathsAtom } from '@state/debug/atoms';
 import { jotaiStore } from '@state/jotai';
-
-import { tweakpaneAtom, tweakpanePathsAtom } from './Tweakpane';
 
 type AtomWithTweakOptions = BindingParams & {
   /**
@@ -19,25 +18,6 @@ type AtomWithTweakOptions = BindingParams & {
    * Defaults to all routes.
    */
   paths?: string[];
-};
-
-type SubscriberArgs<Value> = {
-  /**
-   * Getter function to retrieve _any_ atom value in the store.
-   */
-  get: Getter;
-  /**
-   * Setter function to update _any_ atom value in the store.
-   */
-  set: Setter;
-  /**
-   * Current atom value.
-   */
-  value: Value;
-  /**
-   * Previous atom value.
-   */
-  prevValue: Value;
 };
 
 /**
@@ -73,10 +53,10 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
     const currAtom = atom(value);
     const bindingAtom = atom(
       (get) => get(currAtom),
-      (get, set, currVal: T) => {
-        const prevVal = get(currAtom);
-        set(prevAtom, prevVal);
-        set(currAtom, currVal);
+      (get, set, newVal: T) => {
+        const currVal = get(currAtom);
+        set(prevAtom, currVal);
+        set(currAtom, newVal);
       }
     );
 
@@ -133,34 +113,7 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
       };
     };
 
-    /**
-     * Perform a side effect using a stable callback function. This hook is meant
-     * to be used instead of `useAtom` or `useAtomValue`. Returns the current atom
-     * value at render time, but updating the tweak will not cause a re-render.
-     * @param callback stable callback function to execute on atom changes
-     */
-    function useSubscriber(callback: (args: SubscriberArgs<T>) => void) {
-      // Retrieve the latest atom value
-      const value = jotaiStore.get(currAtom);
-
-      useEffect(() => {
-        const { get, set, sub } = jotaiStore;
-
-        // Subscribing to the atom will trigger the `onMount` effect.
-        return sub(bindingAtom, () => {
-          callback({
-            get,
-            set,
-            value: get(currAtom),
-            prevValue: get(prevAtom),
-          });
-        });
-      }, [callback]);
-
-      return value;
-    }
-
-    return [bindingAtom, useSubscriber] as const;
+    return [bindingAtom, createJotaiSubscriber(bindingAtom, prevAtom)] as const;
   };
 }
 

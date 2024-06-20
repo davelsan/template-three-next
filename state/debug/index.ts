@@ -1,2 +1,2 @@
-export * from './atomWithBinding';
+export * from './atoms';
 export * from './Tweakpane';

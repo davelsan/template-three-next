@@ -1,39 +1,29 @@
 'use client';
 
-import { atom, useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { usePathname } from 'next/navigation';
 import { PropsWithChildren, useEffect, useLayoutEffect, useRef } from 'react';
 import { Pane } from 'tweakpane';
 import { PaneConfig } from 'tweakpane/dist/types/pane/pane-config';
-import { BindingApi, ButtonApi } from '@tweakpane/core';
 
-const paneAtom = atom<Pane | undefined>(undefined);
-
-export const tweakpanePathsAtom = atom<
-  Array<readonly [BindingApi | ButtonApi, string[]]>
->([]);
-
-export const tweakpaneAtom = atom(
-  (get) => {
-    const pane = get(paneAtom);
-    return pane as Pane;
-  },
-  (get, set, pane: Pane) => {
-    set(paneAtom, pane);
-  }
-);
+import {
+  tweakpaneAtom,
+  tweakpaneOptionsAtom,
+  tweakpanePathsAtom,
+} from '@state/debug/atoms';
 
 /**
  * Provider component to initialize and dispose the tweakpane instance.
  */
 export function Tweakpane({
   children,
-  ...options
+  ...config
 }: PropsWithChildren<PaneConfig>) {
   const [pane, setPane] = useAtom(tweakpaneAtom);
   const bindingPaths = useAtomValue(tweakpanePathsAtom);
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
+  const { enabled } = useAtomValue(tweakpaneOptionsAtom);
 
   /**
    * To initialize the tweakpane instance, it seems we need to wait for Next.js
@@ -44,7 +34,7 @@ export function Tweakpane({
     if (!containerRef.current) return;
     const pane = new Pane({
       container: containerRef.current,
-      ...options,
+      ...config,
     });
     setPane(pane);
     return () => pane.dispose();
@@ -61,9 +51,9 @@ export function Tweakpane({
     bindingPaths
       .filter(([_, paths]) => paths.length > 0 && !paths.includes(pathname))
       .forEach(([binding]) => pane.remove(binding));
-    // Hide tweakpane if there are no blades to show.
-    pane.hidden = pane.children.length === 0;
-  }, [bindingPaths, pane, pathname]);
+    // Hide tweakpane if there are no blades to show or not enabled
+    pane.hidden = !enabled || pane.children.length === 0;
+  }, [bindingPaths, enabled, pane, pathname]);
 
   return (
     <>
