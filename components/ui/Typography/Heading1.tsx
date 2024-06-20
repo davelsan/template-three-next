@@ -1,6 +1,6 @@
 import { HTMLAttributes, PropsWithChildren } from 'react';
 
-import { cn } from '@shadcn/utils';
+import { cn } from '../utils';
 
 type TypographyH1Props = HTMLAttributes<HTMLHeadingElement> & {
   //

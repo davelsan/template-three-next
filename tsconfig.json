@@ -2,11 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@debug/*": ["./debug/*"],
       "@features/*": ["./features/*"],
       "@helpers/*": ["./helpers/*"],
       "@hooks/*": ["./hooks/*"],
-      "@shadcn/*": ["./components/shadcn/*"],
       "@shaders/*": ["./components/shaders/*"],
       "@state/*": ["./state/*"],
       "@styles/*": ["./styles/*"],

@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react';
 
-import { Heading1, Heading2, Paragraph } from '@shadcn/typography';
+import { Heading1, Heading2, Paragraph } from '@ui/Typography';
 import { View } from '@webgl/View';
 
 import { blobColorAtom, useBlobColor } from '../blob/Models';

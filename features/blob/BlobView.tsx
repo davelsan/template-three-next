@@ -1,4 +1,4 @@
-import { Heading1, Paragraph } from '@shadcn/typography';
+import { Heading1, Paragraph } from '@ui/Typography';
 import { View } from '@webgl/View';
 
 import { Blob3D } from './Blob3D';

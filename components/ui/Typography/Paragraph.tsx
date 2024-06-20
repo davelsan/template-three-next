@@ -1,7 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import { HTMLAttributes } from 'react';
 
-import { cn } from '@shadcn/utils';
+import { cn } from '../utils';
 
 const paragraphCss = cva(['[&:not(:first-child)]:mt-6'], {
   variants: {
