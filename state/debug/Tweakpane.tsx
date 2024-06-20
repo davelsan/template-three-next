@@ -10,7 +10,7 @@ import {
   tweakpaneAtom,
   tweakpaneOptionsAtom,
   tweakpanePathsAtom,
-} from '@state/debug/atoms';
+} from './atoms';
 
 /**
  * Provider component to initialize and dispose the tweakpane instance.

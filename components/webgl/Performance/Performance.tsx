@@ -1,4 +1,4 @@
-import { useAtomValue } from 'jotai/index';
+import { useAtomValue } from 'jotai';
 import { Perf } from 'r3f-perf';
 
 import { atomWithBinding } from '@helpers/jotai';

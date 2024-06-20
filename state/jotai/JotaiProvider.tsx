@@ -1,7 +1,6 @@
 'use client';
 
-import { Provider } from 'jotai';
-import { createStore } from 'jotai/index';
+import { createStore, Provider } from 'jotai';
 import { PropsWithChildren } from 'react';
 
 /**

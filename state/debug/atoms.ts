@@ -1,4 +1,4 @@
-import { atom } from 'jotai/index';
+import { atom } from 'jotai';
 import { Pane } from 'tweakpane';
 import { BindingApi, ButtonApi } from '@tweakpane/core';
 

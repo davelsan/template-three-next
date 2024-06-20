@@ -1,8 +1,7 @@
 'use client';
 
-import { ComponentProps, useEffect, useRef } from 'react';
-import { addEffect } from '@react-three/fiber';
-import { LenisContext, ReactLenis } from '@studio-freight/react-lenis';
+import { ComponentProps } from 'react';
+import { ReactLenis } from '@studio-freight/react-lenis';
 
 type LenisProps = ComponentProps<typeof ReactLenis>;
 

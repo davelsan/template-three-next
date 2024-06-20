@@ -1,6 +1,7 @@
-import { Blob3D } from '@features/blob/Blob3D';
 import { Heading1, Paragraph } from '@shadcn/typography';
 import { View } from '@webgl/View';
+
+import { Blob3D } from './Blob3D';
 
 export function BlobView() {
   return (

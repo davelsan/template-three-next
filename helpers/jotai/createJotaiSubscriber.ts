@@ -1,5 +1,4 @@
-import { Atom } from 'jotai';
-import { Getter, Setter } from 'jotai/index';
+import { Atom, Getter, Setter } from 'jotai';
 import { useEffect, useRef } from 'react';
 
 import { jotaiStore } from '@state/jotai';

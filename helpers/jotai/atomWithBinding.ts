@@ -4,8 +4,8 @@ import { atom } from 'jotai';
 import { atomFamily } from 'jotai/utils';
 import { BindingParams, FolderApi, FolderParams } from '@tweakpane/core';
 
-import { createJotaiSubscriber } from '@helpers/jotai/index';
-import { tweakpaneAtom, tweakpanePathsAtom } from '@state/debug/atoms';
+import { createJotaiSubscriber } from '@helpers/jotai';
+import { tweakpaneAtom, tweakpanePathsAtom } from '@state/debug';
 import { jotaiStore } from '@state/jotai';
 
 type AtomWithTweakOptions = BindingParams & {
@@ -40,7 +40,7 @@ const tweakpaneFolderFamily = atomFamily(
  * @example create a binding within a folder.
  * const materialBinding = atomWithBindingFolder({ title: 'Material' });
  *
- * const [colorAtom, useColorAtom] = materialBinding('color', * new Color('#ffffff'), {
+ * const [colorAtom, useColorAtom] = materialBinding('color', new Color('#ffffff'), {
  *   listen: true,
  *   params: { color: { type: 'float' } },
  * });
