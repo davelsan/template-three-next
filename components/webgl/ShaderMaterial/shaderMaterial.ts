@@ -15,9 +15,8 @@ import {
   Vector3,
   Vector4,
 } from 'three';
+import { InferConstructableType } from 'utils/types';
 import { Node } from '@react-three/fiber';
-
-import { InferConstructableType } from '@helpers/types/InferConstructableType';
 
 /**
  * Valid uniform value types.

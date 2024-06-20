@@ -20,18 +20,15 @@
           ["^[a-z]", "^@"],
           // Folder aliases
           [
-            "^@atoms",
             "^@debug",
             "^@features",
             "^@helpers",
             "^@hooks",
-            "^@molecules",
-            "^@organisms",
             "^@shadcn",
             "^@shaders",
             "^@state",
             "^@styles",
-            "^@templates",
+            "^@ui",
             "^@utils",
             "^@webgl"
           ],

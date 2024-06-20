@@ -5,10 +5,9 @@ import { Preload, View } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
 import { useImmutableRef } from '@hooks/useImmutableRef';
+import { Lenis } from '@ui/Lenis';
 
-import { Lenis } from '../Lenis';
-
-export function Layout({ children }: PropsWithChildren) {
+export function HomeLayout({ children }: PropsWithChildren) {
   const divRef = useImmutableRef<HTMLDivElement>();
   return (
     <div ref={divRef}>

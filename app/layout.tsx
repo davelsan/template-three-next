@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
+import { HomeLayout } from '@features/home/HomeLayout';
 import { Tweakpane } from '@state/debug';
 import { JotaiProvider } from '@state/jotai';
-import { Layout } from '@templates/Layout';
 
 import '@styles/tailwind.css';
 import '@styles/tweakpane.css';
@@ -26,10 +26,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       */}
       <head />
       <body>
-        {/* To avoid FOUT with styled-components wrap Layout with StyledComponentsRegistry https://beta.nextjs.org/docs/styling/css-in-js#styled-components */}
+        {/* To avoid FOUT with styled-components wrap HomeLayout with StyledComponentsRegistry https://beta.nextjs.org/docs/styling/css-in-js#styled-components */}
         <JotaiProvider>
           <Tweakpane title="Debug">
-            <Layout>{children}</Layout>
+            <HomeLayout>{children}</HomeLayout>
           </Tweakpane>
         </JotaiProvider>
       </body>

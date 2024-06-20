@@ -9,11 +9,11 @@ In this adaptation, I've added missing TypeScript types in various components an
 ### Features
 
 - [Next.js](https://nextjs.org) with app router support.
-- [React Three Fiber](https://github.com/pmndrs/react-three-fiber) and [pmndrs/drei](https://github.com/pmndrs/drei) to create [Three.js](https://threejs.org) experiences using a declarative paradigm well-aligned with React principles.
-- [TailwindCSS](https://tailwindcss.com) and [Class Variance Authority](https://cva.style/docs) for a great DX when styling components, primed to leverage [shadcn/ui](https://ui.shadcn.com) if desired.
-- Codebase organized around [features](./features) to compose the different pages and an incipient atomic design for [components](./components).
-- [TypeScript](https://www.typescriptlang.org) for type safety and great intellisense, together with sensible [ESLint](https://eslint.org) and [Prettier](https://prettier.io) configurations.
+- [React Three Fiber](https://github.com/pmndrs/react-three-fiber) and [pmndrs/drei](https://github.com/pmndrs/drei) to create [Three.js](https://threejs.org) experiences using a declarative syntax.
 - [Jotai](https://jotai.org) as the state management solution, including some custom [Tweakpane](https://tweakpane.github.io/docs) atoms for a nicer DX.
+- [TailwindCSS](https://tailwindcss.com) and [Class Variance Authority](https://cva.style/docs) primed to leverage [shadcn/ui](https://ui.shadcn.com).
+- Codebase organized around [features](./features) and [components](./components).
+- [TypeScript](https://www.typescriptlang.org) for type safety and intellisense, with matching [ESLint](https://eslint.org) and [Prettier](https://prettier.io) configurations.
 
 ## Tweakpane + Jotai
 
