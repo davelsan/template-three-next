@@ -2,7 +2,12 @@
 
 import { atom } from 'jotai';
 import { atomFamily } from 'jotai/utils';
-import { BindingParams, FolderApi, FolderParams } from '@tweakpane/core';
+import {
+  BindingParams,
+  FolderApi,
+  FolderParams,
+  isColorObject,
+} from '@tweakpane/core';
 
 import { createJotaiSubscriber } from '@helpers/jotai';
 import { tweakpaneAtom, tweakpanePathsAtom } from '@state/debug';
@@ -78,7 +83,8 @@ export function atomWithBindingFolder(folderParams?: FolderParams) {
 
       // Update the atoms with the 'change' event.
       binding.on('change', ({ value }) => {
-        set(bindingAtom, value);
+        const _value = isColorObject(value) ? { ...value } : value;
+        set(bindingAtom, _value);
       });
 
       // Support non-reactively updating the tweakpane UI blade.
